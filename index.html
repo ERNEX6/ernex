@@ -12,10 +12,12 @@
             --surface-light: #1a1a26;
             --accent: #6c5ce7;
             --accent-glow: #a29bfe;
+            --owner-color: #ffd700;
             --text: #e0e0e0;
             --text-muted: #8888a0;
             --border: #252540;
             --gradient: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            --owner-gradient: linear-gradient(135deg, #ffd700, #ff8c00);
             --card-hover: #1e1e30;
             --shadow: 0 8px 32px rgba(108, 92, 231, 0.15);
             --radius: 16px;
@@ -24,17 +26,14 @@
             --danger: #f44336;
             --warning: #ff9800;
         }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         html {
             scroll-behavior: smooth;
         }
-
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             background-color: var(--bg);
@@ -42,126 +41,7 @@
             line-height: 1.6;
             overflow-x: hidden;
             min-height: 100vh;
-            transition: filter 0.3s ease;
         }
-
-        /* Модальные окна */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-            padding: 20px;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .modal {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            max-width: 700px;
-            width: 100%;
-            max-height: 85vh;
-            overflow-y: auto;
-            padding: 32px;
-            position: relative;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            background: var(--surface-light);
-            border: 1px solid var(--border);
-            color: #fff;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-            z-index: 10;
-        }
-
-        .modal-close:hover {
-            background: var(--danger);
-            border-color: var(--danger);
-        }
-
-        .modal h2 {
-            font-size: 1.6rem;
-            margin-bottom: 20px;
-            color: #fff;
-            text-align: center;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .modal h3 {
-            color: var(--accent-glow);
-            margin: 20px 0 10px;
-            font-size: 1.1rem;
-        }
-
-        .modal p,
-        .modal li {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 8px;
-            line-height: 1.5;
-        }
-
-        .modal ul {
-            padding-left: 20px;
-            margin-bottom: 12px;
-        }
-        .modal ul li {
-            margin-bottom: 6px;
-        }
-        .modal strong {
-            color: #fff;
-        }
-
-        .modal .warning-box {
-            background: rgba(244, 67, 54, 0.1);
-            border: 1px solid rgba(244, 67, 54, 0.3);
-            border-radius: 12px;
-            padding: 16px;
-            margin: 20px 0;
-            text-align: center;
-        }
-        .modal .warning-box i {
-            color: var(--danger);
-            font-size: 1.5rem;
-            margin-bottom: 8px;
-        }
-        .modal .warning-box p {
-            color: #ff8a80;
-            font-weight: 600;
-            font-size: 1rem;
-            margin: 0;
-        }
-
-        /* Анимированный фон */
         .particles-bg {
             position: fixed;
             top: 0;
@@ -195,7 +75,6 @@
                 opacity: 0;
             }
         }
-
         .container {
             max-width: 1100px;
             margin: 0 auto;
@@ -203,16 +82,13 @@
             position: relative;
             z-index: 1;
         }
-
-        /* Шапка */
         header {
-            padding: 24px 0;
+            padding: 20px 0;
             position: sticky;
             top: 0;
             z-index: 100;
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            background: rgba(10, 10, 15, 0.7);
+            background: rgba(10, 10, 15, 0.75);
             border-bottom: 1px solid var(--border);
             transition: var(--transition);
         }
@@ -224,27 +100,23 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 16px;
+            gap: 14px;
         }
         .logo {
-            font-size: 1.8rem;
+            font-size: 1.7rem;
             font-weight: 800;
             background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: 1px;
             cursor: pointer;
-            transition: var(--transition);
-            text-shadow: 0 0 30px rgba(108, 92, 231, 0.4);
+            letter-spacing: 1px;
         }
         .logo:hover {
             transform: scale(1.05);
-            text-shadow: 0 0 50px rgba(108, 92, 231, 0.7);
         }
         nav {
             display: flex;
-            gap: 20px;
+            gap: 16px;
             align-items: center;
             flex-wrap: wrap;
         }
@@ -254,49 +126,32 @@
             font-weight: 500;
             font-size: 0.9rem;
             transition: var(--transition);
-            position: relative;
             cursor: pointer;
-        }
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: var(--transition);
         }
         nav a:hover {
             color: #fff;
-        }
-        nav a:hover::after {
-            width: 100%;
         }
         .btn-contact {
             background: var(--gradient);
             color: #fff;
             border: none;
-            padding: 10px 24px;
+            padding: 10px 22px;
             border-radius: 50px;
             font-weight: 600;
             cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
             font-size: 0.9rem;
             box-shadow: 0 4px 20px rgba(108, 92, 231, 0.3);
+            transition: var(--transition);
         }
         .btn-contact:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 30px rgba(108, 92, 231, 0.5);
         }
-
-        /* Кнопка пользователя */
         .user-btn {
             background: var(--surface-light);
             border: 1px solid var(--border);
             color: #fff;
-            padding: 8px 16px;
+            padding: 8px 14px;
             border-radius: 50px;
             cursor: pointer;
             font-weight: 600;
@@ -304,558 +159,396 @@
             transition: var(--transition);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             white-space: nowrap;
         }
-        .user-btn:hover {
-            background: var(--card-hover);
-            border-color: var(--accent);
-        }
-        .user-btn i {
-            color: var(--accent-glow);
+        .user-btn img {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            object-fit: cover;
         }
         .user-btn.logged-in {
             background: rgba(76, 175, 80, 0.15);
             border-color: rgba(76, 175, 80, 0.4);
         }
-
-        /* Hero */
-        .hero {
-            padding: 80px 0 60px;
+        .user-btn.owner-logged-in {
+            background: rgba(255, 215, 0, 0.15);
+            border-color: rgba(255, 215, 0, 0.5);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+        }
+        .user-btn:hover {
+            border-color: var(--accent);
+            background: var(--card-hover);
+        }
+        .announcement-bar {
+            background: linear-gradient(135deg, #6c5ce7, #ff6b6b);
+            color: #fff;
             text-align: center;
+            padding: 10px 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
             position: relative;
+            z-index: 99;
+            display: none;
+            animation: slideDown 0.4s ease;
+        }
+        .announcement-bar.show {
+            display: block;
+        }
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .hero {
+            padding: 70px 0 50px;
+            text-align: center;
         }
         .hero-badge {
             display: inline-block;
             background: rgba(108, 92, 231, 0.15);
             color: var(--accent-glow);
-            padding: 8px 20px;
+            padding: 8px 18px;
             border-radius: 50px;
             font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 24px;
+            margin-bottom: 22px;
             border: 1px solid rgba(108, 92, 231, 0.3);
             animation: pulse 2s infinite;
         }
         @keyframes pulse {
-            0%, 100% {
+            0%,
+            100% {
                 box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.4);
             }
             50% {
-                box-shadow: 0 0 0 15px rgba(108, 92, 231, 0);
+                box-shadow: 0 0 0 14px rgba(108, 92, 231, 0);
             }
         }
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 3.2rem;
             font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 16px;
             background: linear-gradient(135deg, #fff 0%, #c4c4d0 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
         .hero h1 span {
             background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
         .hero .subtitle {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             color: var(--text-muted);
             max-width: 600px;
-            margin: 0 auto 32px;
+            margin: 12px auto 28px;
         }
-        .hero .status {
+        .status-badge {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            background: var(--surface-light);
-            padding: 12px 24px;
+            gap: 6px;
+            padding: 10px 20px;
             border-radius: 50px;
-            font-size: 0.9rem;
-            color: #4caf50;
             font-weight: 600;
-            border: 1px solid var(--border);
-            margin-bottom: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            cursor: default;
         }
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            background: #4caf50;
-            border-radius: 50%;
-            animation: blink 1.5s infinite;
+        .status-open {
+            background: rgba(76, 175, 80, 0.15);
+            border: 1px solid rgba(76, 175, 80, 0.4);
+            color: #81c784;
         }
-        @keyframes blink {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.3;
-            }
+        .status-closed {
+            background: rgba(244, 67, 54, 0.15);
+            border: 1px solid rgba(244, 67, 54, 0.4);
+            color: #ef9a9a;
         }
         .schedule-badge {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             background: rgba(255, 152, 0, 0.1);
             border: 1px solid rgba(255, 152, 0, 0.3);
             color: #ffb74d;
-            padding: 10px 20px;
+            padding: 8px 16px;
             border-radius: 50px;
             font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 24px;
-        }
-
-        /* Секции */
-        .stack-section,
-        .services-section,
-        .pricing-section,
-        .contact-form-section,
-        .contact-section,
-        .reviews-section {
-            padding: 60px 0;
+            margin-bottom: 20px;
         }
         .section-title {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            margin-bottom: 24px;
             text-align: center;
             color: #fff;
-            position: relative;
+            margin-bottom: 28px;
             display: inline-block;
+            position: relative;
         }
         .section-title::after {
             content: '';
             position: absolute;
-            bottom: -8px;
+            bottom: -6px;
             left: 50%;
             transform: translateX(-50%);
-            width: 50px;
+            width: 40px;
             height: 3px;
             background: var(--accent);
             border-radius: 2px;
         }
         .title-wrapper {
             text-align: center;
-            margin-bottom: 32px;
+            margin-bottom: 28px;
         }
-
-        /* Стек */
         .stack-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 14px;
+            gap: 12px;
             justify-content: center;
         }
         .stack-item {
             background: var(--surface);
             border: 1px solid var(--border);
-            padding: 14px 24px;
-            border-radius: 12px;
+            padding: 12px 20px;
+            border-radius: 10px;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: var(--transition);
-            cursor: default;
             display: flex;
             align-items: center;
-            gap: 10px;
-            color: var(--text);
+            gap: 8px;
         }
         .stack-item i {
-            font-size: 1.3rem;
             color: var(--accent-glow);
-            transition: var(--transition);
         }
         .stack-item:hover {
-            background: var(--card-hover);
             border-color: var(--accent);
-            transform: translateY(-4px);
+            transform: translateY(-3px);
             box-shadow: var(--shadow);
         }
-        .stack-item:hover i {
-            color: #fff;
-            transform: scale(1.2);
-        }
-
-        /* Услуги */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 18px;
         }
         .service-card {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 32px 24px;
-            transition: var(--transition);
+            padding: 28px 22px;
             text-align: center;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 50% 0%, rgba(108, 92, 231, 0.08), transparent 70%);
-            opacity: 0;
             transition: var(--transition);
-        }
-        .service-card:hover::before {
-            opacity: 1;
-        }
-        .service-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 16px 40px rgba(108, 92, 231, 0.2);
-            border-color: var(--accent);
-            background: var(--card-hover);
         }
         .service-card i {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 16px;
-            display: block;
+            margin-bottom: 14px;
         }
         .service-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 8px;
             color: #fff;
+            margin-bottom: 6px;
         }
         .service-card p {
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
-
-        /* Прайс-лист */
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow);
+        }
         .price-category {
-            margin-bottom: 40px;
+            margin-bottom: 36px;
         }
         .price-category h3 {
-            font-size: 1.4rem;
-            margin-bottom: 20px;
+            font-size: 1.2rem;
             color: #fff;
+            margin-bottom: 16px;
             display: flex;
             align-items: center;
-            gap: 12px;
-        }
-        .price-category h3 i {
-            color: var(--accent-glow);
+            gap: 10px;
         }
         .price-table {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 10px;
         }
         .price-item {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 18px 20px;
+            border-radius: 10px;
+            padding: 14px 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             transition: var(--transition);
-            cursor: default;
-        }
-        .price-item:hover {
-            background: var(--card-hover);
-            border-color: var(--accent);
-            box-shadow: var(--shadow);
-            transform: translateX(4px);
         }
         .price-item .item-name {
-            font-weight: 500;
-            color: var(--text);
             display: flex;
             align-items: center;
-            gap: 10px;
-            flex: 1;
-            min-width: 0;
-        }
-        .price-item .item-name i {
-            color: var(--accent-glow);
-            font-size: 1.1rem;
-            flex-shrink: 0;
+            gap: 8px;
+            font-size: 0.9rem;
         }
         .price-item .item-price {
             font-weight: 700;
-            font-size: 1.1rem;
             background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
             white-space: nowrap;
-            margin-left: 12px;
+            margin-left: 10px;
         }
-        .price-highlight {
-            border: 2px solid var(--accent);
-            box-shadow: 0 0 20px rgba(108, 92, 231, 0.2);
+        .price-item:hover {
+            border-color: var(--accent);
+            transform: translateX(3px);
         }
-
-        /* Баннер */
         .pricing-banner {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 32px;
+            padding: 28px;
             text-align: center;
-            margin: 40px 0;
-            position: relative;
-            overflow: hidden;
-        }
-        .pricing-banner::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(108, 92, 231, 0.05), transparent 60%);
-            animation: rotate 20s linear infinite;
-        }
-        @keyframes rotate {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
-        .pricing-banner h2 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            position: relative;
-            z-index: 1;
-            color: #fff;
+            margin: 30px 0;
         }
         .pricing-banner .price-tag {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 800;
             background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            position: relative;
-            z-index: 1;
         }
-        .pricing-banner p {
-            position: relative;
-            z-index: 1;
-            color: var(--text-muted);
-            margin-top: 8px;
-        }
-
-        /* Форма */
         .form-wrapper {
-            max-width: 650px;
+            max-width: 600px;
             margin: 0 auto;
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 40px;
-            position: relative;
-        }
-        .form-wrapper h3 {
-            font-size: 1.4rem;
-            margin-bottom: 8px;
-            color: #fff;
-            text-align: center;
-        }
-        .form-wrapper .form-subtitle {
-            color: var(--text-muted);
-            text-align: center;
-            margin-bottom: 28px;
-            font-size: 0.9rem;
+            padding: 32px;
         }
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text);
-        }
-        .form-group label i {
-            color: var(--accent-glow);
-            margin-right: 6px;
         }
         .form-group input,
         .form-group textarea,
         .form-group select {
             width: 100%;
-            padding: 14px 18px;
+            padding: 12px 16px;
             background: var(--surface-light);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: 10px;
             color: #fff;
-            font-size: 0.95rem;
             font-family: inherit;
-            transition: var(--transition);
             outline: none;
+            transition: var(--transition);
+        }
+        .form-group textarea {
+            min-height: 110px;
             resize: vertical;
+        }
+        .form-group select {
+            appearance: none;
+            cursor: pointer;
         }
         .form-group input:focus,
         .form-group textarea:focus,
         .form-group select:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 20px rgba(108, 92, 231, 0.2);
-        }
-        .form-group textarea {
-            min-height: 130px;
-        }
-        .form-group select {
-            appearance: none;
-            cursor: pointer;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238888a0' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 18px center;
-            padding-right: 40px;
-        }
-        .form-group select option {
-            background: var(--surface-light);
-            color: #fff;
+            box-shadow: 0 0 15px rgba(108, 92, 231, 0.2);
         }
         .submit-btn {
             width: 100%;
-            padding: 16px;
+            padding: 14px;
             background: var(--gradient);
             color: #fff;
             border: none;
-            border-radius: 12px;
-            font-size: 1rem;
+            border-radius: 10px;
             font-weight: 700;
             cursor: pointer;
             transition: var(--transition);
-            box-shadow: 0 4px 20px rgba(108, 92, 231, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+        }
+        .submit-btn.owner-btn {
+            background: var(--owner-gradient);
+            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
         }
         .submit-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(108, 92, 231, 0.5);
-        }
-        .submit-btn:active {
-            transform: scale(0.98);
+            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.4);
         }
         .submit-btn.loading {
-            pointer-events: none;
             opacity: 0.7;
+            pointer-events: none;
         }
-        .checkbox-group {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-        .checkbox-group input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            accent-color: var(--accent);
-            cursor: pointer;
-            margin-top: 2px;
-            flex-shrink: 0;
-        }
-        .agreement-link {
-            color: var(--accent-glow);
-            text-decoration: underline;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 500;
-        }
-        .agreement-link:hover {
-            color: #fff;
-        }
-
-        /* Контакты */
         .contact-links {
             display: flex;
-            gap: 20px;
+            gap: 16px;
             justify-content: center;
             flex-wrap: wrap;
         }
         .contact-link {
             background: var(--surface);
             border: 1px solid var(--border);
-            padding: 16px 28px;
-            border-radius: 12px;
+            padding: 14px 22px;
+            border-radius: 10px;
             color: var(--text);
             text-decoration: none;
             font-weight: 600;
             transition: var(--transition);
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 1rem;
+            gap: 8px;
         }
         .contact-link:hover {
-            background: var(--card-hover);
             border-color: var(--accent);
-            box-shadow: var(--shadow);
-            transform: translateY(-3px);
+            transform: translateY(-2px);
             color: #fff;
         }
-        .contact-link i {
-            font-size: 1.4rem;
-            color: var(--accent-glow);
-        }
-
-        /* Отзывы */
         .reviews-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
         }
         .review-card {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 24px;
-            transition: var(--transition);
-        }
-        .review-card:hover {
-            border-color: var(--accent);
-            box-shadow: var(--shadow);
-            background: var(--card-hover);
+            padding: 20px;
         }
         .review-header {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
+            gap: 10px;
+            margin-bottom: 10px;
         }
         .review-avatar {
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             background: var(--gradient);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 1.1rem;
             color: #fff;
             flex-shrink: 0;
         }
         .review-author {
             font-weight: 600;
             color: #fff;
-            font-size: 0.95rem;
         }
         .review-date {
             font-size: 0.8rem;
@@ -863,119 +556,142 @@
         }
         .review-stars {
             color: #ffc107;
-            font-size: 0.9rem;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         .review-text {
             color: var(--text-muted);
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-        .review-form-wrapper {
-            max-width: 600px;
-            margin: 0 auto;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 32px;
+            font-size: 0.85rem;
         }
         .star-rating {
             display: flex;
-            gap: 8px;
-            font-size: 1.8rem;
+            gap: 6px;
+            font-size: 1.6rem;
             cursor: pointer;
-            margin-bottom: 16px;
             justify-content: center;
+            margin-bottom: 12px;
         }
         .star-rating i {
             color: #444;
             transition: var(--transition);
         }
-        .star-rating i.active,
-        .star-rating i:hover {
+        .star-rating i.active {
             color: #ffc107;
         }
-
-        /* Админ-панель */
-        .admin-panel {
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 20px;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .modal {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 24px;
-            margin-top: 30px;
+            max-width: 850px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 28px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
         }
-        .admin-panel h3 {
+        .modal-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--surface-light);
+            border: 1px solid var(--border);
             color: #fff;
-            margin-bottom: 16px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            transition: var(--transition);
+            z-index: 5;
         }
-        .admin-panel h3 i {
-            color: var(--accent-glow);
+        .modal-close:hover {
+            background: var(--danger);
         }
-        .orders-table {
-            width: 100%;
-            border-collapse: collapse;
+        .modal h2 {
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+            color: #fff;
+            text-align: center;
+        }
+        .terminal-box {
+            background: #0a0a0a;
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 16px;
+            font-family: 'Courier New', monospace;
+            color: #0f0;
+            max-height: 250px;
+            overflow-y: auto;
+            margin-top: 12px;
             font-size: 0.85rem;
         }
-        .orders-table th {
-            background: var(--surface-light);
-            padding: 12px;
-            text-align: left;
-            color: var(--accent-glow);
-            font-weight: 600;
-            border-bottom: 2px solid var(--border);
-            white-space: nowrap;
+        .terminal-box .cmd {
+            color: #0f0;
         }
-        .orders-table td {
-            padding: 12px;
-            border-bottom: 1px solid var(--border);
-            color: var(--text-muted);
-            vertical-align: top;
+        .terminal-box .err {
+            color: #f44;
         }
-        .orders-table tr:hover td {
-            background: rgba(108, 92, 231, 0.05);
+        .terminal-box .info {
+            color: #ff0;
         }
-        .badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 600;
+        .terminal-input {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
         }
-        .badge-new {
-            background: rgba(255, 152, 0, 0.2);
-            color: #ffb74d;
+        .terminal-input input {
+            flex: 1;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            color: #0f0;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            outline: none;
         }
-        .badge-read {
-            background: rgba(76, 175, 80, 0.2);
-            color: #81c784;
+        .terminal-input button {
+            background: #333;
+            color: #0f0;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
         }
-        .empty-state {
-            text-align: center;
-            padding: 40px;
-            color: var(--text-muted);
-        }
-        .empty-state i {
-            font-size: 3rem;
-            margin-bottom: 12px;
-            color: var(--border);
-        }
-
-        /* Toast */
         .toast {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            padding: 16px 24px;
-            border-radius: 12px;
+            bottom: 24px;
+            right: 24px;
+            padding: 14px 20px;
+            border-radius: 10px;
             color: #fff;
             font-weight: 600;
             z-index: 10000;
             animation: slideInRight 0.4s ease, fadeOut 0.4s ease 3s forwards;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-            max-width: 400px;
+            max-width: 380px;
         }
         .toast.success {
             background: var(--success);
@@ -994,955 +710,769 @@
             }
         }
         @keyframes fadeOut {
-            from {
-                opacity: 1;
-            }
             to {
                 opacity: 0;
                 transform: translateY(20px);
             }
         }
-
-        /* Футер */
+        .admin-tabs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+        .admin-tab {
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+        .admin-tab.active {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+        .admin-tab.owner-only {
+            border-color: var(--owner-color);
+            color: var(--owner-color);
+        }
+        .admin-tab.owner-only.active {
+            background: var(--owner-gradient);
+            color: #000;
+        }
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+        }
+        .orders-table th {
+            background: var(--surface-light);
+            padding: 10px;
+            text-align: left;
+            color: var(--accent-glow);
+            border-bottom: 2px solid var(--border);
+        }
+        .orders-table td {
+            padding: 10px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 50px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+        .badge-new {
+            background: rgba(255, 152, 0, 0.2);
+            color: #ffb74d;
+        }
+        .badge-read {
+            background: rgba(76, 175, 80, 0.2);
+            color: #81c784;
+        }
+        .badge-admin {
+            background: rgba(108, 92, 231, 0.3);
+            color: #a29bfe;
+        }
+        .badge-owner {
+            background: rgba(255, 215, 0, 0.3);
+            color: #ffd700;
+            border: 1px solid rgba(255, 215, 0, 0.5);
+        }
+        .badge-banned {
+            background: rgba(244, 67, 54, 0.3);
+            color: #ef9a9a;
+        }
         footer {
             text-align: center;
-            padding: 32px 0;
+            padding: 24px 0;
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             border-top: 1px solid var(--border);
             margin-top: 40px;
         }
         footer span {
             color: var(--accent-glow);
-            font-weight: 600;
         }
-        .footer-links {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 12px;
-        }
-        .footer-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: var(--transition);
-            font-size: 0.85rem;
-            cursor: pointer;
-        }
-        .footer-links a:hover {
-            color: var(--accent-glow);
-        }
-
-        /* Адаптивность */
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 2.2rem;
-            }
-            .header-inner {
-                flex-direction: column;
-                text-align: center;
-            }
-            nav {
-                gap: 12px;
-                justify-content: center;
-            }
-            .stack-item {
-                padding: 10px 16px;
-                font-size: 0.85rem;
-            }
-            .services-grid,
-            .reviews-grid {
-                grid-template-columns: 1fr;
-            }
-            .form-wrapper,
-            .review-form-wrapper {
-                padding: 24px 20px;
-            }
-            .price-table {
-                grid-template-columns: 1fr;
-            }
-            .toast {
-                left: 20px;
-                right: 20px;
-                bottom: 20px;
-                max-width: none;
-                text-align: center;
+                font-size: 2rem;
             }
             .modal {
-                padding: 20px 16px;
-                max-height: 85vh;
+                padding: 18px 14px;
+                max-height: 95vh;
             }
             .orders-table {
-                font-size: 0.75rem;
+                font-size: 0.7rem;
             }
-            .orders-table th,
-            .orders-table td {
-                padding: 8px;
-            }
-        }
-
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--border);
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent);
         }
     </style>
 </head>
 <body>
-
-    <!-- Фон -->
     <div class="particles-bg" id="particlesBg"></div>
+    <div class="announcement-bar" id="announcementBar"></div>
 
-    <!-- Модальное окно: Пользовательское соглашение -->
-    <div class="modal-overlay" id="agreementModal">
-        <div class="modal">
-            <button class="modal-close" onclick="closeModal('agreementModal')"><i class="fas fa-times"></i></button>
-            <h2><i class="fas fa-file-contract"></i> Пользовательское соглашение</h2>
-            <h3>1. ОБЩИЕ УСЛОВИЯ</h3>
-            <h3>1.1. Безвозвратность оплаты</h3>
-            <p>Любая оплата, внесенная Покупателем, является <strong>окончательной и невозвращаемой</strong> вне зависимости от обстоятельств.</p>
-            <h3>1.2. Гарантии и доработки</h3>
-            <p>В течение <strong>7 дней</strong> после передачи продукта Исполнитель может (но не обязан) вносить исправления.</p>
-            <h3>1.3. Отсутствие обязательств по срокам</h3>
-            <p>Исполнитель <strong>не гарантирует</strong> соблюдение сроков выполнения заказа.</p>
-            <h3>1.4. Право на неограниченное продление сроков</h3>
-            <p>Исполнитель вправе откладывать выполнение заказа на неограниченный срок.</p>
-            <h3>2. УСЛОВИЯ ВЫПОЛНЕНИЯ ЗАКАЗА</h3>
-            <h3>2.1. Начало работы</h3>
-            <p>Только после <strong>100% предоплаты</strong>.</p>
-            <h3>2.2. Отказ от выполнения</h3>
-            <p>Исполнитель вправе отказаться без возврата средств.</p>
-            <h3>3. ОТВЕТСТВЕННОСТЬ</h3>
-            <p>Покупатель отказывается от любых претензий после оплаты.</p>
-            <h3>4. ЗАКЛЮЧИТЕЛЬНЫЕ ПОЛОЖЕНИЯ</h3>
-            <p><strong>Оплата = принятие всех условий без исключений.</strong></p>
-            <p>Реквизиты: Т-Банк (карта), СБП (номер телефона).</p>
-            <div class="warning-box">
-                <i class="fas fa-exclamation-triangle"></i>
-                <p>Внося оплату, вы безоговорочно принимаете все пункты данного соглашения.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Модальное окно: Регистрация / Авторизация -->
-    <div class="modal-overlay" id="authModal">
-        <div class="modal" style="max-width: 450px;">
-            <button class="modal-close" onclick="closeModal('authModal')"><i class="fas fa-times"></i></button>
-            <h2 id="authModalTitle"><i class="fas fa-sign-in-alt"></i> Авторизация</h2>
-            <form id="authForm" novalidate>
-                <div class="form-group">
-                    <label for="authUsername"><i class="fas fa-user"></i> Логин</label>
-                    <input type="text" id="authUsername" placeholder="Придумай логин" required minlength="3">
-                </div>
-                <div class="form-group">
-                    <label for="authPassword"><i class="fas fa-lock"></i> Пароль</label>
-                    <input type="password" id="authPassword" placeholder="Введи пароль" required minlength="4">
-                </div>
-                <button type="submit" class="submit-btn" id="authSubmitBtn">
-                    <i class="fas fa-sign-in-alt"></i> Войти
-                </button>
-                <p style="text-align:center; margin-top: 16px; color: var(--text-muted); font-size: 0.85rem;">
-                    <span id="authToggleText">Нет аккаунта?</span>
-                    <span class="agreement-link" id="authToggleBtn" style="margin-left: 4px;">Зарегистрироваться</span>
-                </p>
-            </form>
-        </div>
-    </div>
-
-    <!-- Модальное окно: Админ-панель (заявки) -->
-    <div class="modal-overlay" id="adminModal">
-        <div class="modal" style="max-width: 900px;">
-            <button class="modal-close" onclick="closeModal('adminModal')"><i class="fas fa-times"></i></button>
-            <h2><i class="fas fa-crown"></i> Панель управления — Заявки</h2>
-            <div id="adminOrdersContainer">
-                <div class="empty-state">
-                    <i class="fas fa-inbox"></i>
-                    <p>Заявок пока нет</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Шапка -->
     <header id="header">
         <div class="container header-inner">
             <div class="logo" onclick="scrollToTop()">ERNEX</div>
             <nav>
                 <a href="#about">Обо мне</a>
-                <a href="#stack">Стек</a>
                 <a href="#pricing">Цены</a>
                 <a href="#reviews">Отзывы</a>
                 <a href="#form">Заказать</a>
                 <a href="#contact" class="btn-contact">Связаться</a>
-                <button class="user-btn" id="userBtn" onclick="openAuth()">
+                <button class="user-btn" id="userBtn" onclick="handleUserBtnClick()">
                     <i class="fas fa-user"></i> <span id="userBtnText">Войти</span>
                 </button>
             </nav>
         </div>
     </header>
 
-    <!-- Hero -->
     <section class="hero container" id="about">
         <div class="hero-badge"><i class="fas fa-code"></i> Middle-разработчик</div>
         <h1>Привет! Я <span>ERNEX</span></h1>
-        <p class="subtitle">
-            Разработка сайтов, чат-ботов и кастомных решений — под твой проект.
-            Пишу на Web, Pawn, Java, JavaScript, Python, CSS, HTML.
-        </p>
-        <div class="status"><span class="status-dot"></span> Открыт для заказов</div>
-        <br>
+        <p class="subtitle">Разработка сайтов, чат-ботов и кастомных решений под твой проект.</p>
+        <div id="statusContainer">
+            <div class="status-badge status-open"><span style="width:8px;height:8px;background:#81c784;border-radius:50%;display:inline-block;animation:blink 1.5s infinite;"></span> Открыт для заказов</div>
+        </div>
         <div class="schedule-badge"><i class="fas fa-clock"></i> Пн – Пт: 11:30 – 19:30</div>
         <br>
-        <a href="#form" class="btn-contact" style="font-size: 1rem; padding: 14px 36px;">
-            <i class="fas fa-paper-plane"></i> Обсудить проект
-        </a>
+        <a href="#form" class="btn-contact" style="font-size:1rem;padding:12px 30px;"><i class="fas fa-paper-plane"></i> Обсудить проект</a>
     </section>
 
-    <!-- Стек -->
-    <section class="stack-section container" id="stack">
+    <section class="container" id="stack" style="padding:40px 0;">
         <div class="title-wrapper"><h2 class="section-title">Мой стек</h2></div>
         <div class="stack-grid" id="stackGrid"></div>
     </section>
 
-    <!-- Услуги -->
-    <section class="services-section container" id="services">
+    <section class="container" id="services" style="padding:40px 0;">
         <div class="title-wrapper"><h2 class="section-title">Что я делаю</h2></div>
         <div class="services-grid">
-            <div class="service-card">
-                <i class="fas fa-globe"></i><h3>Разработка сайтов</h3>
-                <p>Лендинги, корпоративные сайты, веб-приложения. Чистый код и современный дизайн.</p>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-robot"></i><h3>Чат-боты</h3>
-                <p>Умные боты для Telegram, Discord, WhatsApp, VK. Автоматизация общения.</p>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-puzzle-piece"></i><h3>Кастомные решения</h3>
-                <p>Уникальный софт под ваш бизнес: парсеры, API, интеграции, Pawn-скрипты.</p>
-            </div>
+            <div class="service-card"><i class="fas fa-globe"></i><h3>Сайты</h3><p>Лендинги, корпоративные, веб-приложения.</p></div>
+            <div class="service-card"><i class="fas fa-robot"></i><h3>Боты</h3><p>Telegram, Discord, VK — автоматизация.</p></div>
+            <div class="service-card"><i class="fas fa-puzzle-piece"></i><h3>Кастом</h3><p>Уникальный софт под ваш бизнес.</p></div>
         </div>
     </section>
 
-    <!-- Прайс-лист -->
-    <section class="pricing-section container" id="pricing">
+    <section class="container" id="pricing" style="padding:40px 0;">
         <div class="title-wrapper"><h2 class="section-title">Прайс-лист</h2></div>
-
-        <!-- Проекты -->
-        <div class="price-category">
-            <h3><i class="fas fa-gamepad"></i> 🎮 Проекты</h3>
-            <div class="price-table">
-                <div class="price-item"><span class="item-name"><i class="fas fa-server"></i> BLACK RUSSIA 2026</span><span class="item-price">350₽</span></div>
-                <div class="price-item"><span class="item-name"><i class="fas fa-server"></i> BLACK RUSSIA 2023</span><span class="item-price">200₽</span></div>
-                <div class="price-item"><span class="item-name"><i class="fas fa-server"></i> BRILLIANT RP</span><span class="item-price">200₽</span></div>
-                <div class="price-item"><span class="item-name"><i class="fas fa-server"></i> MATRESHKA RP</span><span class="item-price">200₽</span></div>
-                <div class="price-item"><span class="item-name"><i class="fas fa-server"></i> RADMIR</span><span class="item-price">500₽</span></div>
-                <div class="price-item"><span class="item-name"><i class="fas fa-server"></i> ARIZONA</span><span class="item-price">270₽</span></div>
-            </div>
-        </div>
-
-        <!-- Форумы -->
-        <div class="price-category">
-            <h3><i class="fas fa-comments"></i> 💻 Форумы (копии)</h3>
-            <div class="price-table">
-                <div class="price-item"><span class="item-name"><i class="fas fa-copy"></i> Любой форум (любого проекта + фулл настроенный)</span><span class="item-price">550₽</span></div>
-                <div class="price-item price-highlight"><span class="item-name"><i class="fas fa-star"></i> Свой форум (по вашему ТЗ)</span><span class="item-price">3 500₽</span></div>
-            </div>
-        </div>
-
-        <!-- Сайты -->
-        <div class="price-category">
-            <h3><i class="fas fa-laptop-code"></i> 🌐 Сайты</h3>
-            <div class="price-table">
-                <div class="price-item"><span class="item-name"><i class="fas fa-copy"></i> Любой сайт (любого проекта + фулл настройка)</span><span class="item-price">450₽</span></div>
-                <div class="price-item price-highlight"><span class="item-name"><i class="fas fa-star"></i> Полностью свой сайт с 0 по вашему ТЗ</span><span class="item-price">6 000₽</span></div>
-            </div>
-        </div>
-
-        <!-- Боты -->
-        <div class="price-category">
-            <h3><i class="fas fa-robot"></i> 🤖 Боты</h3>
-            <div class="price-table">
-                <div class="price-item price-highlight"><span class="item-name"><i class="fas fa-star"></i> Бот чат-менеджер ВК (полностью свой по вашему ТЗ)</span><span class="item-price">5 500₽</span></div>
-                <div class="price-item"><span class="item-name"><i class="fas fa-copy"></i> BLACK MANAGER (копия BR)</span><span class="item-price">2 500₽</span></div>
-                <div class="price-item price-highlight"><span class="item-name"><i class="fas fa-bullhorn"></i> Авто пиар бот</span><span class="item-price">5 500₽</span></div>
-            </div>
-        </div>
-
-        <!-- Разработка проектов -->
-        <div class="price-category">
-            <h3><i class="fas fa-cogs"></i> 🔧 Разработка проектов с 0</h3>
-            <div class="price-table">
-                <div class="price-item price-highlight">
-                    <span class="item-name"><i class="fas fa-star"></i> CRMP проект с 0 ПОЛНОСТЬЮ по вашему ТЗ</span>
-                    <span class="item-price">от 35 000₽</span>
-                </div>
-                <div class="price-item price-highlight">
-                    <span class="item-name"><i class="fas fa-star"></i> SA:MP проект с 0 ПОЛНОСТЬЮ по вашему ТЗ</span>
-                    <span class="item-price">от 10 000₽</span>
-                </div>
-            </div>
-            <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 8px; text-align: center;">
-                * О конкретной цене договоримся при обсуждении
-            </p>
-        </div>
+        <div id="pricingContainer"></div>
     </section>
 
-    <!-- Баннер -->
-    <div class="container">
-        <div class="pricing-banner">
-            <p style="font-size: 1.1rem; font-weight: 600; z-index: 1; position: relative;">💎 Моя позиция</p>
+    <div class="container"><div class="pricing-banner">
             <div class="price-tag">Бесплатно не работаю</div>
-            <p>Качественная разработка требует времени, опыта и ответственности. <br>Оплата — уважение к труду.</p>
-        </div>
-    </div>
+            <p style="color:var(--text-muted);">Оплата — уважение к труду.</p>
+    </div></div>
 
-    <!-- Отзывы -->
-    <section class="reviews-section container" id="reviews">
-        <div class="title-wrapper"><h2 class="section-title">Отзывы клиентов</h2></div>
-        <div class="reviews-grid" id="reviewsGrid">
-            <!-- Динамически -->
-        </div>
-
-        <!-- Форма отзыва -->
-        <div class="review-form-wrapper" id="reviewFormWrapper">
-            <h3 style="color:#fff; text-align:center; margin-bottom: 8px;">
-                <i class="fas fa-star" style="color:#ffc107;"></i> Оставить отзыв
-            </h3>
-            <p style="color: var(--text-muted); text-align: center; margin-bottom: 20px; font-size: 0.85rem;">
-                Поделись впечатлением о моей работе
-            </p>
-            <form id="reviewForm" novalidate>
-                <div class="form-group">
-                    <label for="reviewName"><i class="fas fa-user"></i> Твоё имя</label>
-                    <input type="text" id="reviewName" placeholder="Введи имя" required minlength="2">
-                </div>
-                <div class="form-group">
-                    <label><i class="fas fa-star"></i> Оценка</label>
+    <section class="container" id="reviews" style="padding:40px 0;">
+        <div class="title-wrapper"><h2 class="section-title">Отзывы</h2></div>
+        <div class="reviews-grid" id="reviewsGrid"></div>
+        <div class="form-wrapper" style="max-width:550px;">
+            <h3 style="text-align:center;color:#fff;margin-bottom:12px;">Оставить отзыв</h3>
+            <form id="reviewForm">
+                <div class="form-group"><label>Имя</label><input type="text" id="reviewName" required minlength="2"></div>
+                <div class="form-group"><label>Оценка</label>
                     <div class="star-rating" id="starRating">
-                        <i class="fas fa-star" data-star="1"></i>
-                        <i class="fas fa-star" data-star="2"></i>
-                        <i class="fas fa-star" data-star="3"></i>
-                        <i class="fas fa-star" data-star="4"></i>
-                        <i class="fas fa-star" data-star="5"></i>
+                        <i class="fas fa-star" data-star="1"></i><i class="fas fa-star" data-star="2"></i><i class="fas fa-star" data-star="3"></i><i class="fas fa-star" data-star="4"></i><i class="fas fa-star" data-star="5"></i>
                     </div>
-                    <input type="hidden" id="reviewStars" value="0" required>
+                    <input type="hidden" id="reviewStars" value="0">
                 </div>
-                <div class="form-group">
-                    <label for="reviewText"><i class="fas fa-comment"></i> Твой отзыв</label>
-                    <textarea id="reviewText" placeholder="Расскажи о своём опыте..." required minlength="10"></textarea>
-                </div>
-                <button type="submit" class="submit-btn">
-                    <i class="fas fa-paper-plane"></i> Отправить отзыв
-                </button>
+                <div class="form-group"><label>Отзыв</label><textarea id="reviewText" required minlength="10"></textarea></div>
+                <button type="submit" class="submit-btn">Отправить отзыв</button>
             </form>
         </div>
     </section>
 
-    <!-- Форма заявки -->
-    <section class="contact-form-section container" id="form">
+    <section class="container" id="form" style="padding:40px 0;">
         <div class="title-wrapper"><h2 class="section-title">Оставить заявку</h2></div>
         <div class="form-wrapper">
-            <h3><i class="fas fa-paper-plane" style="color: var(--accent-glow); margin-right: 8px;"></i> Заказать разработку</h3>
-            <p class="form-subtitle">Заполни форму, и я свяжусь с тобой в ближайшее время</p>
-            <form id="orderForm" novalidate>
-                <div class="form-group">
-                    <label for="orderName"><i class="fas fa-user"></i> Твоё имя</label>
-                    <input type="text" id="orderName" placeholder="Введи имя" required minlength="2">
+            <h3 style="text-align:center;color:#fff;margin-bottom:12px;">Заказать разработку</h3>
+            <form id="orderForm">
+                <div class="form-group"><label>Имя</label><input type="text" id="orderName" required minlength="2"></div>
+                <div class="form-group"><label>Контакт (TG/VK/Email)</label><input type="text" id="orderContact" required minlength="3"></div>
+                <div class="form-group"><label>Услуга</label><select id="orderService" required><option value="">— Выбери —</option></select></div>
+                <div class="form-group"><label>Бюджет</label><input type="text" id="orderBudget"></div>
+                <div class="form-group"><label>Описание</label><textarea id="orderMessage" required minlength="10"></textarea></div>
+                <div class="form-group" style="display:flex;align-items:center;gap:8px;font-size:0.8rem;color:var(--text-muted);">
+                    <input type="checkbox" id="orderAgree" required> Принимаю <span style="color:var(--accent-glow);cursor:pointer;text-decoration:underline;" onclick="openAgreement()">условия</span>
                 </div>
-                <div class="form-group">
-                    <label for="orderContact"><i class="fas fa-address-book"></i> Контакт для связи</label>
-                    <input type="text" id="orderContact" placeholder="Telegram: @username, VK или Email" required minlength="3">
-                </div>
-                <div class="form-group">
-                    <label for="orderService"><i class="fas fa-tag"></i> Тип услуги</label>
-                    <select id="orderService" required>
-                        <option value="">— Выбери услугу —</option>
-                        <optgroup label="🎮 Проекты">
-                            <option value="BLACK RUSSIA 2026">BLACK RUSSIA 2026 — 350₽</option>
-                            <option value="BLACK RUSSIA 2023">BLACK RUSSIA 2023 — 200₽</option>
-                            <option value="BRILLIANT RP">BRILLIANT RP — 200₽</option>
-                            <option value="MATRESHKA RP">MATRESHKA RP — 200₽</option>
-                            <option value="RADMIR">RADMIR — 500₽</option>
-                            <option value="ARIZONA">ARIZONA — 270₽</option>
-                        </optgroup>
-                        <optgroup label="💻 Форумы">
-                            <option value="Форум (копия)">Любой форум (копия) — 550₽</option>
-                            <option value="Свой форум">Свой форум по ТЗ — 3 500₽</option>
-                        </optgroup>
-                        <optgroup label="🌐 Сайты">
-                            <option value="Сайт (копия)">Любой сайт (копия) — 450₽</option>
-                            <option value="Свой сайт">Свой сайт с 0 по ТЗ — 6 000₽</option>
-                        </optgroup>
-                        <optgroup label="🤖 Боты">
-                            <option value="Бот чат-менеджер ВК">Бот чат-менеджер ВК (свой) — 5 500₽</option>
-                            <option value="BLACK MANAGER">BLACK MANAGER (копия BR) — 2 500₽</option>
-                            <option value="Авто пиар бот">Авто пиар бот — 5 500₽</option>
-                        </optgroup>
-                        <optgroup label="🔧 Разработка проектов">
-                            <option value="CRMP проект с 0">CRMP проект с 0 — от 35 000₽</option>
-                            <option value="SA:MP проект с 0">SA:MP проект с 0 — от 10 000₽</option>
-                        </optgroup>
-                        <optgroup label="🤖 Другое">
-                            <option value="Чат-бот">Чат-бот</option>
-                            <option value="Кастомное решение">Кастомное решение</option>
-                            <option value="Другое">Другое (опишу в сообщении)</option>
-                        </optgroup>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="orderBudget"><i class="fas fa-ruble-sign"></i> Бюджет</label>
-                    <input type="text" id="orderBudget" placeholder="Например: 500₽ — 35000₽">
-                </div>
-                <div class="form-group">
-                    <label for="orderMessage"><i class="fas fa-message"></i> Опиши задачу</label>
-                    <textarea id="orderMessage" placeholder="Расскажи подробнее о проекте..." required minlength="10"></textarea>
-                </div>
-                <div class="form-group checkbox-group">
-                    <input type="checkbox" id="orderAgree" required>
-                    <label for="orderAgree" style="margin-bottom:0; font-weight:400;">
-                        Я принимаю условия <span class="agreement-link" onclick="event.preventDefault(); openModal('agreementModal');">пользовательского соглашения</span>
-                    </label>
-                </div>
-                <button type="submit" class="submit-btn" id="orderSubmitBtn">
-                    <i class="fas fa-paper-plane"></i> Отправить заявку
-                </button>
+                <button type="submit" class="submit-btn">Отправить заявку</button>
             </form>
         </div>
     </section>
 
-    <!-- Контакты -->
-    <section class="contact-section container" id="contact">
-        <div class="title-wrapper"><h2 class="section-title">Связаться напрямую</h2></div>
-        <p style="color: var(--text-muted); margin-bottom: 8px;">Выбери удобный способ — я на связи!</p>
-        <p style="color: #ffb74d; margin-bottom: 24px; font-size: 0.9rem;">
-            <i class="fas fa-clock"></i> График работы: <strong>Пн – Пт, 11:30 – 19:30</strong>
-        </p>
+    <section class="container" id="contact" style="padding:40px 0;text-align:center;">
+        <div class="title-wrapper"><h2 class="section-title">Контакты</h2></div>
+        <p style="color:#ffb74d;margin-bottom:16px;"><i class="fas fa-clock"></i> Пн – Пт, 11:30 – 19:30</p>
         <div class="contact-links">
-            <a href="https://vk.com/pawn_official" target="_blank" class="contact-link"><i class="fab fa-vk"></i> ВКонтакте</a>
-            <a href="https://t.me/pawn_official1" target="_blank" class="contact-link"><i class="fab fa-telegram"></i> Telegram</a>
+            <a href="https://vk.com/pawn_official" target="_blank" class="contact-link"><i class="fab fa-vk"></i> VK</a>
+            <a href="https://t.me/pawn_official1" target="_blank" class="contact-link"><i class="fab fa-telegram"></i> TG</a>
             <a href="mailto:markeloff.tim@yandex.ru" class="contact-link"><i class="fas fa-envelope"></i> Email</a>
         </div>
     </section>
 
-    <!-- Футер -->
-    <footer>
-        <div class="container">
-            © 2025 <span>ERNEX</span> — Middle-разработчик. Все права защищены. <br>
-            <div class="footer-links">
-                <a onclick="event.preventDefault(); openModal('agreementModal');">Пользовательское соглашение</a>
-                <a href="https://vk.com/pawn_official" target="_blank">VK</a>
-                <a href="https://t.me/pawn_official1" target="_blank">Telegram</a>
-                <a href="mailto:markeloff.tim@yandex.ru">Email</a>
-            </div>
-            <span style="font-size: 0.8rem;">#КодКакИскусство</span>
+    <footer><div class="container">© 2025 <span>ERNEX</span> | <span style="cursor:pointer;text-decoration:underline;" onclick="openAgreement()">Соглашение</span></div></footer>
+
+    <div class="modal-overlay" id="agreementModal"><div class="modal"><button class="modal-close" onclick="closeModal('agreementModal')"><i class="fas fa-times"></i></button><h2>Соглашение</h2><p style="color:var(--text-muted);">Оплата = принятие условий. Возврата нет. Сроки ориентировочные.</p></div></div>
+
+    <div class="modal-overlay" id="authModal"><div class="modal" style="max-width:420px;"><button class="modal-close" onclick="closeModal('authModal')"><i class="fas fa-times"></i></button><h2 id="authTitle">Авторизация</h2>
+        <form id="authForm">
+            <div class="form-group"><label>Логин</label><input type="text" id="authLogin" required minlength="3"></div>
+            <div class="form-group"><label>Пароль</label><input type="password" id="authPass" required minlength="4"></div>
+            <div class="form-group" id="authAvatarGroup" style="display:none;"><label>Ссылка на аватарку</label><input type="text" id="authAvatar" placeholder="https://... (GIF тоже можно)"></div>
+            <button type="submit" class="submit-btn" id="authSubmitBtn">Войти</button>
+            <p style="text-align:center;margin-top:12px;font-size:0.8rem;color:var(--text-muted);">
+                <span id="authToggleText">Нет аккаунта?</span> <span style="color:var(--accent-glow);cursor:pointer;" id="authToggleBtn">Регистрация</span>
+            </p>
+        </form>
+    </div></div>
+
+    <div class="modal-overlay" id="profileModal"><div class="modal" style="max-width:420px;"><button class="modal-close" onclick="closeModal('profileModal')"><i class="fas fa-times"></i></button><h2>Мой профиль</h2>
+        <div id="profileContent"></div>
+    </div></div>
+
+    <div class="modal-overlay" id="adminModal"><div class="modal"><button class="modal-close" onclick="closeModal('adminModal')"><i class="fas fa-times"></i></button><h2 id="adminPanelTitle">👑 Панель управления</h2>
+        <div class="admin-tabs" id="adminTabs">
+            <div class="admin-tab active" data-tab="orders">📋 Заявки</div>
+            <div class="admin-tab" data-tab="users">👥 Пользователи</div>
+            <div class="admin-tab" data-tab="pricing">💰 Прайс</div>
+            <div class="admin-tab" data-tab="announce">📢 Объявления</div>
+            <div class="admin-tab" data-tab="settings">⚙️ Настройки</div>
+            <div class="admin-tab owner-only" data-tab="terminal" id="terminalTab">💻 Терминал</div>
         </div>
-    </footer>
+        <div id="adminTabContent"></div>
+    </div></div>
 
     <script>
-        // ==================== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ И ХРАНИЛИЩЕ ====================
-        const STORAGE_KEYS = {
-            currentUser: 'ernex_current_user',
-            users: 'ernex_users',
-            orders: 'ernex_orders',
-            reviews: 'ernex_reviews',
-        };
+        const KEYS = { users: 'ernex_users_v2', current: 'ernex_current_v2', orders: 'ernex_orders_v2', reviews: 'ernex_reviews_v2',
+            pricing: 'ernex_pricing_v2', announce: 'ernex_announce_v2', settings: 'ernex_settings_v2' };
+        const OWNER_CRED = { username: 'ernex', password: 'ernex1337' };
 
-        // Инициализация данных в localStorage
-        function getStorage(key, defaultValue) {
-            try {
-                const data = localStorage.getItem(key);
-                return data ? JSON.parse(data) : defaultValue;
-            } catch (e) {
-                return defaultValue;
+        function gs(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }
+
+        function ss(k, v) { localStorage.setItem(k, JSON.stringify(v)); }
+
+        function initDefaults() {
+            let users = gs(KEYS.users, []);
+            if (!users.find(u => u.username === 'ernex')) {
+                users.push({ id: 'owner-001', username: 'ernex', password: 'ernex1337', role: 'owner', avatar: '',
+                    createdAt: new Date().toISOString(), banned: false });
             }
-        }
-
-        function setStorage(key, value) {
-            localStorage.setItem(key, JSON.stringify(value));
-        }
-
-        // Предзаполненные отзывы
-        function initDefaultReviews() {
-            const existing = getStorage(STORAGE_KEYS.reviews, []);
-            if (existing.length === 0) {
-                const defaultReviews = [
-                    { name: 'Алексей', stars: 5, text: 'Отличный разработчик! Сделал форум для BR проекта быстро и качественно. Всем рекомендую!', date: '2025-12-15' },
-                    { name: 'Марина', stars: 5, text: 'Заказывала сайт под ключ. ERNEX учёл все пожелания, дизайн — огонь! Буду обращаться ещё.', date: '2025-11-20' },
-                    { name: 'Дмитрий', stars: 4, text: 'Сделал чат-бота для ВК. Всё работает стабильно. Небольшая задержка по срокам, но результат того стоил.', date: '2025-10-05' },
-                ];
-                setStorage(STORAGE_KEYS.reviews, defaultReviews);
+            if (!users.find(u => u.username === 'admin')) {
+                users.push({ id: 'admin-001', username: 'admin', password: 'admin123', role: 'admin', avatar: '',
+                    createdAt: new Date().toISOString(), banned: false });
             }
+            ss(KEYS.users, users);
+            if (!localStorage.getItem(KEYS.reviews)) ss(KEYS.reviews, [
+                { name: 'Алексей', stars: 5, text: 'Отличный разработчик! Рекомендую.', date: '2025-12-15' },
+                { name: 'Марина', stars: 5, text: 'Сайт под ключ — всё супер!', date: '2025-11-20' },
+            ]);
+            if (!localStorage.getItem(KEYS.pricing)) ss(KEYS.pricing, [
+                { cat: '🎮 Проекты', items: [{ name: 'BLACK RUSSIA 2026', price: '350₽' }, { name: 'BLACK RUSSIA 2023',
+                        price: '200₽' }, { name: 'BRILLIANT RP', price: '200₽' }, { name: 'MATRESHKA RP', price: '200₽' },
+                    { name: 'RADMIR', price: '500₽' }, { name: 'ARIZONA', price: '270₽' }
+                ] },
+                { cat: '💻 Форумы', items: [{ name: 'Любой форум (копия)', price: '550₽' }, { name: 'Свой форум по ТЗ',
+                        price: '3 500₽' }] },
+                { cat: '🌐 Сайты', items: [{ name: 'Любой сайт (копия)', price: '450₽' }, { name: 'Свой сайт с 0',
+                        price: '6 000₽' }] },
+                { cat: '🤖 Боты', items: [{ name: 'Чат-менеджер ВК (свой)', price: '5 500₽' }, { name: 'BLACK MANAGER (копия)',
+                        price: '2 500₽' }, { name: 'Авто пиар бот', price: '5 500₽' }] },
+                { cat: '🔧 Проекты с 0', items: [{ name: 'CRMP проект с 0', price: 'от 35 000₽' }, { name: 'SA:MP проект с 0',
+                        price: 'от 10 000₽' }] },
+            ]);
+            if (!localStorage.getItem(KEYS.announce)) ss(KEYS.announce, { text: '', active: false });
+            if (!localStorage.getItem(KEYS.settings)) ss(KEYS.settings, { openForOrders: true });
         }
-        initDefaultReviews();
+        initDefaults();
 
-        // Текущий пользователь
-        let currentUser = getStorage(STORAGE_KEYS.currentUser, null);
+        let currentUser = gs(KEYS.current, null);
 
-        // ==================== МОДАЛЬНЫЕ ОКНА ====================
-        function openModal(modalId) {
-            document.getElementById(modalId).classList.add('active');
-            document.body.style.overflow = 'hidden';
-            if (modalId === 'adminModal') renderAdminOrders();
-        }
+        function isOwner() { return currentUser && currentUser.role === 'owner'; }
 
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
-            document.body.style.overflow = '';
-        }
+        function isAdmin() { return currentUser && (currentUser.role === 'admin' || currentUser.role === 'owner'); }
 
-        document.querySelectorAll('.modal-overlay').forEach(overlay => {
-            overlay.addEventListener('click', function(e) {
-                if (e.target === this) {
-                    this.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-            });
-        });
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                document.querySelectorAll('.modal-overlay.active').forEach(ov => {
-                    ov.classList.remove('active');
-                });
-                document.body.style.overflow = '';
-            }
-        });
-
-        // ==================== АНИМАЦИИ ====================
-        (function createParticles() {
+        (function() {
             const bg = document.getElementById('particlesBg');
-            for (let i = 0; i < 35; i++) {
+            for (let i = 0; i < 30; i++) {
                 const p = document.createElement('div');
-                p.classList.add('particle');
-                const s = Math.random() * 4 + 2;
-                p.style.cssText = `
-                    width:${s}px; height:${s}px;
-                    left:${Math.random()*100}%;
-                    animation-duration:${Math.random()*15+10}s;
-                    animation-delay:${Math.random()*10}s;
-                `;
+                p.className = 'particle';
+                p.style.cssText =
+                    `width:${Math.random()*4+2}px;height:${Math.random()*4+2}px;left:${Math.random()*100}%;animation-duration:${Math.random()*15+10}s;animation-delay:${Math.random()*10}s;`;
                 bg.appendChild(p);
             }
         })();
 
-        const stackData = [
-            { name: 'Web', icon: 'fa-solid fa-globe' },
-            { name: 'Pawn', icon: 'fa-solid fa-gamepad' },
-            { name: 'Java', icon: 'fa-brands fa-java' },
-            { name: 'JavaScript', icon: 'fa-brands fa-js' },
-            { name: 'Python', icon: 'fa-brands fa-python' },
-            { name: 'CSS', icon: 'fa-brands fa-css3-alt' },
-            { name: 'HTML', icon: 'fa-brands fa-html5' },
-            { name: 'Node.js', icon: 'fa-brands fa-node-js' },
-            { name: 'SQL', icon: 'fa-solid fa-database' },
-            { name: 'Git', icon: 'fa-brands fa-git-alt' },
-        ];
-        const stackGrid = document.getElementById('stackGrid');
-        stackData.forEach(item => {
-            const div = document.createElement('div');
-            div.className = 'stack-item';
-            div.innerHTML = `<i class="${item.icon}"></i> ${item.name}`;
-            stackGrid.appendChild(div);
+        ['Web', 'Pawn', 'Java', 'JavaScript', 'Python', 'CSS', 'HTML', 'Node.js', 'SQL', 'Git'].forEach(t => {
+            const d = document.createElement('div');
+            d.className = 'stack-item';
+            d.innerHTML = `<i class="fas fa-code"></i> ${t}`;
+            document.getElementById('stackGrid').appendChild(d);
         });
 
-        const header = document.getElementById('header');
-        window.addEventListener('scroll', () => {
-            header.classList.toggle('scrolled', window.scrollY > 50);
-        });
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href === '#') return;
-                e.preventDefault();
-                const target = document.querySelector(href);
-                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            });
-        });
+        function showToast(m, t = 'success') { const old = document.querySelector('.toast'); if (old) old.remove(); const el =
+                document.createElement('div');
+            el.className = `toast ${t}`;
+            el.textContent = m;
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 3400); }
 
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        function openModal(id) { document.getElementById(id).classList.add('active');
+            document.body.style.overflow = 'hidden'; if (id === 'adminModal') { updateAdminTabs();
+                renderAdminTab('orders'); } }
+
+        function closeModal(id) { document.getElementById(id).classList.remove('active');
+            document.body.style.overflow = ''; }
+        document.querySelectorAll('.modal-overlay').forEach(o => o.addEventListener('click', function(e) { if (e.target ===
+                this) { this.classList.remove('active');
+                document.body.style.overflow = ''; } }));
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') { document.querySelectorAll('.modal-overlay.active')
+                .forEach(o => { o.classList.remove('active');
+                document.body.style.overflow = ''; }); } });
+
+        function openAgreement() { openModal('agreementModal'); }
+
+        function handleUserBtnClick() {
+            if (currentUser) {
+                if (isOwner() || isAdmin()) openModal('adminModal');
+                else { openModal('profileModal');
+                    renderProfile(); }
+            } else openAuthModal();
         }
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
-
-        document.querySelectorAll('.service-card, .stack-item, .pricing-banner, .contact-link, .price-item, .form-wrapper, .review-card, .review-form-wrapper').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
-
-        // ==================== ТОСТЫ ====================
-        function showToast(message, type = 'success') {
-            const old = document.querySelector('.toast');
-            if (old) old.remove();
-            const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            toast.innerHTML = `<i class="fas fa-${type==='success'?'check-circle':'exclamation-circle'}"></i> ${message}`;
-            document.body.appendChild(toast);
-            setTimeout(() => { if (toast.parentNode) toast.remove(); }, 3400);
-        }
-
-        // ==================== АВТОРИЗАЦИЯ / РЕГИСТРАЦИЯ ====================
-        let authMode = 'login'; // 'login' | 'register'
-
-        function updateUserUI() {
+        function updateUI() {
             const btn = document.getElementById('userBtn');
-            const text = document.getElementById('userBtnText');
             if (currentUser) {
                 btn.classList.add('logged-in');
-                text.textContent = currentUser.username;
-                if (currentUser.username === 'admin') {
-                    btn.innerHTML = '<i class="fas fa-crown"></i> <span id="userBtnText">Админ</span>';
-                } else {
-                    btn.innerHTML = '<i class="fas fa-user-check"></i> <span id="userBtnText">' + currentUser.username + '</span>';
-                }
-            } else {
-                btn.classList.remove('logged-in');
-                btn.innerHTML = '<i class="fas fa-user"></i> <span id="userBtnText">Войти</span>';
-            }
-        }
-
-        function openAuth() {
-            if (currentUser) {
-                // Показать меню: выход / админка
-                if (currentUser.username === 'admin') {
-                    openModal('adminModal');
-                } else {
-                    if (confirm('Выйти из аккаунта?')) {
-                        currentUser = null;
-                        setStorage(STORAGE_KEYS.currentUser, null);
-                        updateUserUI();
-                        showToast('Вы вышли из аккаунта');
-                    }
-                }
-                return;
-            }
-            authMode = 'login';
-            document.getElementById('authModalTitle').innerHTML = '<i class="fas fa-sign-in-alt"></i> Авторизация';
-            document.getElementById('authSubmitBtn').innerHTML = '<i class="fas fa-sign-in-alt"></i> Войти';
-            document.getElementById('authToggleText').textContent = 'Нет аккаунта?';
-            document.getElementById('authToggleBtn').textContent = 'Зарегистрироваться';
-            document.getElementById('authForm').reset();
-            openModal('authModal');
-        }
-
-        document.getElementById('authToggleBtn').addEventListener('click', function() {
-            if (authMode === 'login') {
-                authMode = 'register';
-                document.getElementById('authModalTitle').innerHTML = '<i class="fas fa-user-plus"></i> Регистрация';
-                document.getElementById('authSubmitBtn').innerHTML = '<i class="fas fa-user-plus"></i> Зарегистрироваться';
-                document.getElementById('authToggleText').textContent = 'Уже есть аккаунт?';
-                document.getElementById('authToggleBtn').textContent = 'Войти';
-            } else {
-                authMode = 'login';
-                document.getElementById('authModalTitle').innerHTML = '<i class="fas fa-sign-in-alt"></i> Авторизация';
-                document.getElementById('authSubmitBtn').innerHTML = '<i class="fas fa-sign-in-alt"></i> Войти';
-                document.getElementById('authToggleText').textContent = 'Нет аккаунта?';
-                document.getElementById('authToggleBtn').textContent = 'Зарегистрироваться';
-            }
-            document.getElementById('authForm').reset();
-        });
-
-        document.getElementById('authForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const username = document.getElementById('authUsername').value.trim();
-            const password = document.getElementById('authPassword').value.trim();
-
-            if (!username || username.length < 3) {
-                showToast('Логин должен быть минимум 3 символа', 'error');
-                return;
-            }
-            if (!password || password.length < 4) {
-                showToast('Пароль должен быть минимум 4 символа', 'error');
-                return;
-            }
-
-            const users = getStorage(STORAGE_KEYS.users, []);
-
-            if (authMode === 'register') {
-                // Проверка на существование
-                if (users.find(u => u.username.toLowerCase() === username.toLowerCase())) {
-                    showToast('Пользователь с таким логином уже существует', 'error');
-                    return;
-                }
-                const newUser = { username, password, createdAt: new Date().toISOString() };
-                users.push(newUser);
-                setStorage(STORAGE_KEYS.users, users);
-                currentUser = newUser;
-                setStorage(STORAGE_KEYS.currentUser, currentUser);
-                updateUserUI();
-                closeModal('authModal');
-                showToast('Регистрация успешна! Добро пожаловать!');
-            } else {
-                // Логин
-                const user = users.find(u => u.username === username && u.password === password);
-                // Хардкод для админа
-                if (username === 'admin' && password === 'admin123') {
-                    const adminUser = { username: 'admin', password: 'admin123', createdAt: new Date().toISOString() };
-                    if (!users.find(u => u.username === 'admin')) {
-                        users.push(adminUser);
-                        setStorage(STORAGE_KEYS.users, users);
-                    }
-                    currentUser = adminUser;
-                    setStorage(STORAGE_KEYS.currentUser, currentUser);
-                    updateUserUI();
-                    closeModal('authModal');
-                    showToast('Добро пожаловать, Админ!');
-                    return;
-                }
-                if (!user) {
-                    showToast('Неверный логин или пароль', 'error');
-                    return;
-                }
-                currentUser = user;
-                setStorage(STORAGE_KEYS.currentUser, currentUser);
-                updateUserUI();
-                closeModal('authModal');
-                showToast('Авторизация успешна!');
-            }
-        });
-
-        // ==================== ЗАЯВКИ (ОРДЕРЫ) ====================
-        document.getElementById('orderForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const order = {
-                id: Date.now(),
-                name: document.getElementById('orderName').value.trim(),
-                contact: document.getElementById('orderContact').value.trim(),
-                service: document.getElementById('orderService').value,
-                budget: document.getElementById('orderBudget').value.trim(),
-                message: document.getElementById('orderMessage').value.trim(),
-                agree: document.getElementById('orderAgree').checked,
-                status: 'new',
-                createdAt: new Date().toISOString(),
-            };
-
-            if (!order.name || order.name.length < 2) { showToast('Введи корректное имя', 'error'); return; }
-            if (!order.contact || order.contact.length < 3) { showToast('Укажи контакт для связи', 'error'); return; }
-            if (!order.service) { showToast('Выбери тип услуги', 'error'); return; }
-            if (!order.message || order.message.length < 10) { showToast('Опиши задачу подробнее (минимум 10 символов)', 'error'); return; }
-            if (!order.agree) { showToast('Прими пользовательское соглашение', 'error'); return; }
-
-            const orders = getStorage(STORAGE_KEYS.orders, []);
-            orders.unshift(order);
-            setStorage(STORAGE_KEYS.orders, orders);
-
-            const submitBtn = document.getElementById('orderSubmitBtn');
-            submitBtn.classList.add('loading');
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...';
-
-            setTimeout(() => {
-                submitBtn.classList.remove('loading');
-                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Отправить заявку';
-                document.getElementById('orderForm').reset();
-                showToast('✅ Заявка успешно отправлена! Я свяжусь с тобой в ближайшее время.');
-                console.log('%c📨 Новая заявка!', 'color: #a29bfe; font-size: 1.1rem;');
-                console.table(order);
-            }, 1500);
-        });
-
-        // ==================== АДМИН-ПАНЕЛЬ ====================
-        function renderAdminOrders() {
-            const container = document.getElementById('adminOrdersContainer');
-            const orders = getStorage(STORAGE_KEYS.orders, []);
-
-            if (orders.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-inbox"></i>
-                        <p>Заявок пока нет</p>
-                    </div>`;
-                return;
-            }
-
-            let html = `
-                <div style="overflow-x:auto;">
-                <table class="orders-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Дата</th>
-                            <th>Имя</th>
-                            <th>Контакт</th>
-                            <th>Услуга</th>
-                            <th>Бюджет</th>
-                            <th>Сообщение</th>
-                            <th>Статус</th>
-                            <th>Действие</th>
-                        </tr>
-                    </thead>
-                    <tbody>`;
-
-            orders.forEach((order, index) => {
-                const date = new Date(order.createdAt).toLocaleString('ru-RU');
-                const statusBadge = order.status === 'new' ?
-                    '<span class="badge badge-new">Новая</span>' :
-                    '<span class="badge badge-read">Прочитана</span>';
-                html += `
-                    <tr>
-                        <td>#${order.id.toString().slice(-6)}</td>
-                        <td>${date}</td>
-                        <td>${escapeHtml(order.name)}</td>
-                        <td>${escapeHtml(order.contact)}</td>
-                        <td>${escapeHtml(order.service)}</td>
-                        <td>${escapeHtml(order.budget || '—')}</td>
-                        <td style="max-width:200px;">${escapeHtml(order.message)}</td>
-                        <td>${statusBadge}</td>
-                        <td>
-                            ${order.status === 'new' ? 
-                                `<button onclick="markOrderRead(${order.id})" style="background:var(--success); color:#fff; border:none; padding:6px 12px; border-radius:6px; cursor:pointer; font-size:0.8rem;">
-                                    <i class="fas fa-check"></i> Прочитано
-                                </button>` : 
-                                `<button onclick="deleteOrder(${order.id})" style="background:var(--danger); color:#fff; border:none; padding:6px 12px; border-radius:6px; cursor:pointer; font-size:0.8rem;">
-                                    <i class="fas fa-trash"></i>
-                                </button>`
-                            }
-                        </td>
-                    </tr>`;
-            });
-
-            html += '</tbody></table></div>';
-            html += `<p style="color:var(--text-muted); margin-top:12px; font-size:0.8rem;">Всего заявок: ${orders.length} | Новых: ${orders.filter(o=>o.status==='new').length}</p>`;
-            container.innerHTML = html;
-        }
-
-        function markOrderRead(orderId) {
-            const orders = getStorage(STORAGE_KEYS.orders, []);
-            const order = orders.find(o => o.id === orderId);
-            if (order) {
-                order.status = 'read';
-                setStorage(STORAGE_KEYS.orders, orders);
-                renderAdminOrders();
-                showToast('Заявка отмечена как прочитанная');
-            }
-        }
-
-        function deleteOrder(orderId) {
-            if (confirm('Удалить заявку навсегда?')) {
-                let orders = getStorage(STORAGE_KEYS.orders, []);
-                orders = orders.filter(o => o.id !== orderId);
-                setStorage(STORAGE_KEYS.orders, orders);
-                renderAdminOrders();
-                showToast('Заявка удалена');
-            }
-        }
-
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        // ==================== ОТЗЫВЫ ====================
-        function renderReviews() {
-            const reviews = getStorage(STORAGE_KEYS.reviews, []);
-            const grid = document.getElementById('reviewsGrid');
-            if (reviews.length === 0) {
-                grid.innerHTML = '<p style="color:var(--text-muted); text-align:center; grid-column:1/-1;">Пока нет отзывов. Будь первым!</p>';
-                return;
-            }
-            grid.innerHTML = reviews.map((r, i) => {
-                const initials = r.name.charAt(0).toUpperCase();
-                const starsHtml = Array.from({ length: 5 }, (_, j) =>
-                    `<i class="fas fa-star" style="color:${j < r.stars ? '#ffc107' : '#444'}; font-size:0.85rem;"></i>`
-                ).join('');
-                const date = r.date ? new Date(r.date).toLocaleDateString('ru-RU') : '';
-                return `
-                    <div class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">${initials}</div>
-                            <div>
-                                <div class="review-author">${escapeHtml(r.name)}</div>
-                                <div class="review-date">${date}</div>
-                            </div>
-                        </div>
-                        <div class="review-stars">${starsHtml}</div>
-                        <p class="review-text">${escapeHtml(r.text)}</p>
-                    </div>`;
-            }).reverse().join('');
-        }
-
-        // Звёздный рейтинг
-        let selectedStars = 0;
-        const starRating = document.getElementById('starRating');
-        const starIcons = starRating.querySelectorAll('i');
-
-        starIcons.forEach(star => {
-            star.addEventListener('click', function() {
-                selectedStars = parseInt(this.dataset.star);
-                document.getElementById('reviewStars').value = selectedStars;
-                updateStarDisplay();
-            });
-            star.addEventListener('mouseenter', function() {
-                const val = parseInt(this.dataset.star);
-                starIcons.forEach((s, i) => s.classList.toggle('active', i < val));
-            });
-        });
-        starRating.addEventListener('mouseleave', updateStarDisplay);
-
-        function updateStarDisplay() {
-            starIcons.forEach((s, i) => s.classList.toggle('active', i < selectedStars));
-        }
-
-        // Отправка отзыва
-        document.getElementById('reviewForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = document.getElementById('reviewName').value.trim();
-            const stars = parseInt(document.getElementById('reviewStars').value);
-            const text = document.getElementById('reviewText').value.trim();
-
-            if (!name || name.length < 2) { showToast('Введи имя (минимум 2 символа)', 'error'); return; }
-            if (stars < 1) { showToast('Поставь оценку (нажми на звёзды)', 'error'); return; }
-            if (!text || text.length < 10) { showToast('Напиши отзыв (минимум 10 символов)', 'error'); return; }
-
-            const reviews = getStorage(STORAGE_KEYS.reviews, []);
-            reviews.push({
-                name,
-                stars,
-                text,
-                date: new Date().toISOString(),
-            });
-            setStorage(STORAGE_KEYS.reviews, reviews);
+                if (isOwner()) btn.classList.add('owner-logged-in');
+                else btn.classList.remove('owner-logged-in');
+                const avatarHtml = currentUser.avatar ?
+                    `<img src="${currentUser.avatar}" style="width:22px;height:22px;border-radius:50%;object-fit:cover;">` :
+                    (isOwner() ? '<i class="fas fa-crown" style="color:#ffd700;"></i>' :
+                        '<i class="fas fa-user-check"></i>');
+                btn.innerHTML =
+                    `${avatarHtml} <span id="userBtnText">${currentUser.username}${isOwner()?' 👑':''}</span>`;
+            } else { btn.classList.remove('logged-in', 'owner-logged-in');
+                btn.innerHTML = '<i class="fas fa-user"></i> <span id="userBtnText">Войти</span>'; }
+            updateStatusBadge();
+            updateAnnouncement();
+            renderPricing();
             renderReviews();
-            document.getElementById('reviewForm').reset();
-            selectedStars = 0;
-            document.getElementById('reviewStars').value = '0';
-            updateStarDisplay();
-            showToast('Спасибо за отзыв! ❤️');
-        });
-
-        // ==================== ИНИЦИАЛИЗАЦИЯ ====================
-        updateUserUI();
-        renderReviews();
-
-        // Авто-открытие админки если админ
-        if (currentUser && currentUser.username === 'admin') {
-            console.log('%c👑 Админ-доступ активен. Нажми "Админ" в шапке для просмотра заявок.', 'color: #ffc107;');
+            populateOrderSelect();
         }
 
-        console.log('%c🟣 ERNEX — Middle Developer %c| %cСайт загружен!',
-            'color: #a29bfe; font-size: 1.2rem; font-weight: bold;', '', 'color: #8888a0;');
-        console.log('%cСтек: Web • Pawn • Java • JavaScript • Python • CSS • HTML', 'color: #6c5ce7;');
-        console.log('%cБесплатно не работаю 💎', 'color: #fff; font-weight: bold;');
-        console.log('%cАдмин-логин: admin / admin123', 'color: #ffc107;');
+        function updateStatusBadge() { const s = gs(KEYS.settings, { openForOrders: true }); document.getElementById(
+                'statusContainer').innerHTML = s.openForOrders ?
+            '<div class="status-badge status-open"><span style="width:8px;height:8px;background:#81c784;border-radius:50%;display:inline-block;animation:blink 1.5s infinite;"></span> Открыт для заказов</div>' :
+            '<div class="status-badge status-closed"><i class="fas fa-lock"></i> Закрыто</div>'; }
+
+        function updateAnnouncement() { const a = gs(KEYS.announce, { text: '', active: false });
+            const bar = document.getElementById('announcementBar'); if (a.active && a.text) { bar.textContent = '📢 ' + a
+                .text;
+                bar.classList.add('show'); } else bar.classList.remove('show'); }
+
+        function renderPricing() { const p = gs(KEYS.pricing, []);
+            document.getElementById('pricingContainer').innerHTML = p.map(cat => `
+                <div class="price-category"><h3>${cat.cat}</h3><div class="price-table">${cat.items.map(i=>`<div class="price-item"><span class="item-name">${i.name}</span><span class="item-price">${i.price}</span></div>`).join('')}</div></div>
+            `).join(''); }
+
+        function populateOrderSelect() { const p = gs(KEYS.pricing, []); const s = document.getElementById('orderService');
+            s.innerHTML = '<option value="">— Выбери —</option>';
+            p.forEach(cat => { const g = document.createElement('optgroup');
+                g.label = cat.cat;
+                cat.items.forEach(i => { const o = document.createElement('option');
+                    o.value = i.name;
+                    o.textContent = `${i.name} — ${i.price}`;
+                    g.appendChild(o); });
+                s.appendChild(g); }); }
+
+        function renderReviews() { const r = gs(KEYS.reviews, []);
+            document.getElementById('reviewsGrid').innerHTML = r.slice().reverse().map(rr => {
+                const stars = Array.from({ length: 5 }, (_, i) =>
+                    `<i class="fas fa-star" style="color:${i<rr.stars?'#ffc107':'#444'};font-size:0.8rem;"></i>`).join(
+                    '');
+                return `<div class="review-card"><div class="review-header"><div class="review-avatar">${rr.name.charAt(0).toUpperCase()}</div><div><div class="review-author">${rr.name}</div><div class="review-date">${rr.date?new Date(rr.date).toLocaleDateString('ru-RU'):''}</div></div></div><div class="review-stars">${stars}</div><p class="review-text">${rr.text}</p></div>`;
+            }).join('') || '<p style="color:var(--text-muted);text-align:center;">Нет отзывов</p>'; }
+
+        let reviewStars = 0;
+        document.getElementById('starRating').querySelectorAll('i').forEach(s => { s.addEventListener('click', function() {
+                reviewStars = +this.dataset.star;
+                document.getElementById('reviewStars').value = reviewStars;
+                updateStarsDisp(); });
+            s.addEventListener('mouseenter', function() { const v = +this.dataset.star;
+                document.getElementById('starRating').querySelectorAll('i').forEach((st, i) => st.classList
+                    .toggle('active', i < v)); }); });
+        document.getElementById('starRating').addEventListener('mouseleave', updateStarsDisp);
+
+        function updateStarsDisp() { document.getElementById('starRating').querySelectorAll('i').forEach((s, i) => s.classList
+                .toggle('active', i < reviewStars)); }
+        document.getElementById('reviewForm').addEventListener('submit', function(e) { e.preventDefault(); const name = document
+                .getElementById('reviewName').value.trim(),
+                text = document.getElementById('reviewText').value.trim(); if (!name || name.length < 2) return showToast(
+                'Имя минимум 2 символа', 'error'); if (reviewStars < 1) return showToast('Поставь оценку', 'error'); if (
+                !text || text.length < 10) return showToast('Отзыв минимум 10 символов', 'error'); const reviews = gs(KEYS
+                .reviews, []);
+            reviews.push({ name, stars: reviewStars, text, date: new Date().toISOString() });
+            ss(KEYS.reviews, reviews);
+            renderReviews();
+            this.reset();
+            reviewStars = 0;
+            updateStarsDisp();
+            showToast('Спасибо за отзыв!'); });
+
+        document.getElementById('orderForm').addEventListener('submit', function(e) { e.preventDefault(); const order = { id: Date
+                    .now(), name: document.getElementById('orderName').value.trim(), contact: document.getElementById(
+                        'orderContact').value.trim(), service: document.getElementById('orderService').value,
+                budget: document.getElementById('orderBudget').value.trim(), message: document.getElementById(
+                    'orderMessage').value.trim(), agree: document.getElementById('orderAgree').checked, status: 'new',
+                createdAt: new Date().toISOString() }; if (!order.name || order.name.length < 2) return showToast(
+                'Введи имя', 'error'); if (!order.contact || order.contact.length < 3) return showToast('Введи контакт',
+                'error'); if (!order.service) return showToast('Выбери услугу', 'error'); if (!order.message || order
+                .message.length < 10) return showToast('Опиши задачу', 'error'); if (!order.agree) return showToast(
+                'Прими соглашение', 'error'); const orders = gs(KEYS.orders, []);
+            orders.unshift(order);
+            ss(KEYS.orders, orders); const btn = this.querySelector('.submit-btn');
+            btn.classList.add('loading');
+            btn.textContent = 'Отправка...';
+            setTimeout(() => { btn.classList.remove('loading');
+                btn.textContent = 'Отправить заявку';
+                this.reset();
+                showToast('Заявка отправлена!'); }, 1200); });
+
+        let authMode = 'login';
+
+        function openAuthModal() { if (currentUser) { openModal('profileModal');
+                renderProfile(); return; }
+            authMode = 'login';
+            document.getElementById('authTitle').textContent = 'Авторизация';
+            document.getElementById('authSubmitBtn').textContent = 'Войти';
+            document.getElementById('authToggleText').textContent = 'Нет аккаунта?';
+            document.getElementById('authToggleBtn').textContent = 'Регистрация';
+            document.getElementById('authAvatarGroup').style.display = 'none';
+            document.getElementById('authForm').reset();
+            openModal('authModal'); }
+        document.getElementById('authToggleBtn').addEventListener('click', function() { authMode = authMode === 'login' ?
+                'register' : 'login';
+            document.getElementById('authTitle').textContent = authMode === 'login' ? 'Авторизация' : 'Регистрация';
+            document.getElementById('authSubmitBtn').textContent = authMode === 'login' ? 'Войти' : 'Зарегистрироваться';
+            document.getElementById('authToggleText').textContent = authMode === 'login' ? 'Нет аккаунта?' : 'Есть аккаунт?';
+            document.getElementById('authToggleBtn').textContent = authMode === 'login' ? 'Регистрация' : 'Войти';
+            document.getElementById('authAvatarGroup').style.display = authMode === 'register' ? 'block' : 'none'; });
+        document.getElementById('authForm').addEventListener('submit', function(e) { e.preventDefault(); const login = document
+                .getElementById('authLogin').value.trim(),
+                pass = document.getElementById('authPass').value.trim(),
+                avatar = document.getElementById('authAvatar').value.trim(); if (!login || login.length < 3) return showToast(
+                'Логин минимум 3 символа', 'error'); if (!pass || pass.length < 4) return showToast(
+                'Пароль минимум 4 символа', 'error'); let users = gs(KEYS.users, []); if (authMode === 'register') { if (users
+                    .find(u => u.username.toLowerCase() === login.toLowerCase())) return showToast('Такой логин уже есть',
+                    'error'); const newUser = { id: 'u-' + Date.now().toString(36), username: login, password: pass,
+                    role: 'user', avatar: avatar || '', createdAt: new Date().toISOString(), banned: false };
+                users.push(newUser);
+                ss(KEYS.users, users);
+                currentUser = newUser;
+                ss(KEYS.current, currentUser);
+                updateUI();
+                closeModal('authModal');
+                showToast('Регистрация успешна!'); } else { const user = users.find(u => u.username === login && u
+                    .password === pass); if (!user) return showToast('Неверный логин или пароль', 'error'); if (user
+                    .banned) return showToast('Ваш аккаунт заблокирован', 'error');
+                currentUser = user;
+                ss(KEYS.current, currentUser);
+                updateUI();
+                closeModal('authModal'); if (isOwner()) showToast('👑 Добро пожаловать, Владелец!'); else if (isAdmin())
+                    showToast('Добро пожаловать, Админ!'); else showToast(
+                    `Добро пожаловать, ${user.username}! Твой ID: ${user.id}`); } });
+
+        function renderProfile() { if (!currentUser) return;
+            document.getElementById('profileContent').innerHTML = `
+            <div style="text-align:center;">
+                ${currentUser.avatar?`<img src="${currentUser.avatar}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:12px;">`:`<div style="width:80px;height:80px;border-radius:50%;background:${isOwner()?'var(--owner-gradient)':'var(--gradient)'};display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:2rem;color:#fff;">${currentUser.username.charAt(0).toUpperCase()}</div>`}
+                <p style="color:#fff;font-weight:700;font-size:1.1rem;">${currentUser.username} ${isOwner()?'👑':''}</p>
+                <p style="color:var(--accent-glow);font-size:0.8rem;">ID: ${currentUser.id}</p>
+                ${isOwner()?'<span class="badge badge-owner">👑 Владелец</span>':isAdmin()?'<span class="badge badge-admin">Администратор</span>':'<span class="badge badge-read">Пользователь</span>'}
+            </div>
+            <div class="form-group" style="margin-top:16px;"><label>Обновить аватарку (ссылка, можно GIF)</label><input type="text" id="profileAvatar" value="${currentUser.avatar||''}"></div>
+            <button class="submit-btn ${isOwner()?'owner-btn':''}" onclick="updateProfile()" style="margin-top:8px;">Сохранить</button>
+            <button class="submit-btn" onclick="logout()" style="margin-top:8px;background:#555;">Выйти</button>
+            ${isOwner()||isAdmin()?`<button class="submit-btn owner-btn" onclick="closeModal('profileModal');openModal('adminModal');" style="margin-top:8px;">⚡ Панель управления</button>`:''}
+          `; }
+
+        function updateProfile() { if (!currentUser) return; const a = document.getElementById('profileAvatar').value.trim();
+            let users = gs(KEYS.users, []); const idx = users.findIndex(u => u.id === currentUser.id); if (idx >= 0) { users[
+                    idx].avatar = a;
+                currentUser.avatar = a;
+                ss(KEYS.users, users);
+                ss(KEYS.current, currentUser);
+                updateUI();
+                renderProfile();
+                showToast('Аватарка обновлена!'); } }
+
+        function logout() { currentUser = null;
+            ss(KEYS.current, null);
+            updateUI();
+            closeModal('profileModal');
+            closeModal('adminModal');
+            showToast('Вы вышли'); }
+
+        function updateAdminTabs() { const tab = document.getElementById('terminalTab'); if (tab) tab.style.display = isOwner() ?
+                'block' : 'none';
+            document.getElementById('adminPanelTitle').innerHTML = isOwner() ? '👑 Панель Владельца' :
+                '👑 Панель управления'; }
+
+        document.querySelectorAll('.admin-tab').forEach(tab => { tab.addEventListener('click', function() { if (this
+                    .classList.contains('owner-only') && !isOwner()) { showToast('Только для владельца!',
+                    'error'); return; }
+                document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                renderAdminTab(this.dataset.tab); }); });
+
+        function renderAdminTab(tab) { const c = document.getElementById('adminTabContent'); switch (tab) { case 'orders':
+                renderAdminOrders(c); break; case 'users':
+                renderAdminUsers(c); break; case 'pricing':
+                renderAdminPricing(c); break; case 'announce':
+                renderAdminAnnounce(c); break; case 'settings':
+                renderAdminSettings(c); break; case 'terminal':
+                renderTerminal(c); break; } }
+
+        function renderAdminOrders(c) { const orders = gs(KEYS.orders, []); if (!orders.length) { c.innerHTML =
+                '<p style="color:var(--text-muted);text-align:center;">Заявок нет</p>'; return; }
+            c.innerHTML = `<table class="orders-table"><thead><tr><th>ID</th><th>Дата</th><th>Имя</th><th>Контакт</th><th>Услуга</th><th>Статус</th><th>Действие</th></tr></thead><tbody>
+            ${orders.map(o=>`<tr><td>#${o.id.toString().slice(-6)}</td><td>${new Date(o.createdAt).toLocaleString('ru-RU')}</td><td>${o.name}</td><td>${o.contact}</td><td>${o.service}</td><td>${o.status==='new'?'<span class="badge badge-new">Новая</span>':'<span class="badge badge-read">Прочитана</span>'}</td><td>${o.status==='new'?`<button onclick="markRead(${o.id})" style="background:var(--success);color:#fff;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;">✓</button>`:`<button onclick="delOrder(${o.id})" style="background:var(--danger);color:#fff;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;">✕</button>`}</td></tr>`).join('')}
+            </tbody></table>`; }
+
+        function markRead(id) { let o = gs(KEYS.orders, []); const f = o.find(x => x.id === id); if (f) f.status = 'read';
+            ss(KEYS.orders, o);
+            renderAdminTab('orders');
+            showToast('Отмечено'); }
+
+        function delOrder(id) { if (confirm('Удалить?')) { let o = gs(KEYS.orders, []).filter(x => x.id !== id);
+                ss(KEYS.orders, o);
+                renderAdminTab('orders');
+                showToast('Удалено'); } }
+
+        function renderAdminUsers(c) { const users = gs(KEYS.users, []);
+            c.innerHTML = `<table class="orders-table"><thead><tr><th>ID</th><th>Логин</th><th>Роль</th><th>Статус</th><th>Действия</th></tr></thead><tbody>
+            ${users.map(u=>`<tr><td>${u.id}</td><td>${u.username} ${u.avatar?`<img src="${u.avatar}" style="width:20px;height:20px;border-radius:50%;vertical-align:middle;">`:''}</td><td>${u.role==='owner'?'<span class="badge badge-owner">👑 Владелец</span>':u.role==='admin'?'<span class="badge badge-admin">Админ</span>':'Пользователь'}${u.banned?' <span class="badge badge-banned">Забанен</span>':''}</td><td>${u.banned?'🔒 Заблокирован':'✅ Активен'}</td><td>${isOwner()&&u.role!=='owner'?`<button onclick="toggleBan('${u.id}')" style="background:${u.banned?'var(--success)':'var(--danger)'};color:#fff;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;margin-right:4px;">${u.banned?'Разбанить':'Забанить'}</button>${u.role!=='admin'?`<button onclick="makeAdmin('${u.id}')" style="background:var(--accent);color:#fff;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;">В админы</button>`:`<button onclick="demoteAdmin('${u.id}')" style="background:var(--warning);color:#000;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;">Разжаловать</button>`}`:'—'}</td></tr>`).join('')}
+            </tbody></table>`; }
+
+        function toggleBan(uid) { let users = gs(KEYS.users, []); const u = users.find(x => x.id === uid); if (u && u.role !==
+                'owner') { u.banned = !u.banned;
+                ss(KEYS.users, users);
+                renderAdminTab('users');
+                showToast(u.banned ? 'Пользователь забанен' : 'Пользователь разбанен'); } }
+
+        function makeAdmin(uid) { if (!isOwner()) return showToast('Только владелец!', 'error'); let users = gs(KEYS.users, []);
+            const u = users.find(x => x.id === uid); if (u && u.role === 'user') { u.role = 'admin';
+                ss(KEYS.users, users);
+                renderAdminTab('users');
+                showToast('Назначен администратором!'); } }
+
+        function demoteAdmin(uid) { if (!isOwner()) return showToast('Только владелец!', 'error'); let users = gs(KEYS.users, []);
+            const u = users.find(x => x.id === uid); if (u && u.role === 'admin') { u.role = 'user';
+                ss(KEYS.users, users);
+                renderAdminTab('users');
+                showToast('Админ разжалован'); } }
+
+        function renderAdminPricing(c) { const p = gs(KEYS.pricing, []);
+            c.innerHTML = `
+            <button class="submit-btn" onclick="addPriceCat()" style="width:auto;padding:8px 16px;margin-bottom:12px;">+ Категория</button>
+            ${p.map((cat,ci)=>`<div style="margin-bottom:12px;border:1px solid var(--border);border-radius:8px;padding:12px;"><div style="display:flex;justify-content:space-between;align-items:center;"><strong>${cat.cat}</strong><div><button onclick="addPriceItem(${ci})" style="background:var(--success);color:#fff;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;">+ Услуга</button><button onclick="delPriceCat(${ci})" style="background:var(--danger);color:#fff;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;">Удалить</button></div></div>${cat.items.map((item,ii)=>`<div style="display:flex;gap:6px;margin-top:4px;"><input value="${item.name}" onchange="updPrice(${ci},${ii},'name',this.value)" style="flex:1;padding:6px;background:var(--surface-light);border:1px solid var(--border);border-radius:4px;color:#fff;"><input value="${item.price}" onchange="updPrice(${ci},${ii},'price',this.value)" style="width:90px;padding:6px;background:var(--surface-light);border:1px solid var(--border);border-radius:4px;color:#fff;"><button onclick="delPriceItem(${ci},${ii})" style="background:var(--danger);color:#fff;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;">✕</button></div>`).join('')}</div>`).join('')}
+          `; }
+
+        function addPriceCat() { const n = prompt('Название категории:'); if (!n) return; let p = gs(KEYS.pricing, []);
+            p.push({ cat: n, items: [] });
+            ss(KEYS.pricing, p);
+            renderAdminTab('pricing');
+            updateUI(); }
+
+        function delPriceCat(ci) { if (!confirm('Удалить?')) return; let p = gs(KEYS.pricing, []);
+            p.splice(ci, 1);
+            ss(KEYS.pricing, p);
+            renderAdminTab('pricing');
+            updateUI(); }
+
+        function addPriceItem(ci) { const n = prompt('Услуга:'),
+                pr = prompt('Цена:'); if (!n || !pr) return; let p = gs(KEYS.pricing, []);
+            p[ci].items.push({ name: n, price: pr });
+            ss(KEYS.pricing, p);
+            renderAdminTab('pricing');
+            updateUI(); }
+
+        function delPriceItem(ci, ii) { let p = gs(KEYS.pricing, []);
+            p[ci].items.splice(ii, 1);
+            ss(KEYS.pricing, p);
+            renderAdminTab('pricing');
+            updateUI(); }
+
+        function updPrice(ci, ii, f, v) { let p = gs(KEYS.pricing, []);
+            p[ci].items[ii][f] = v;
+            ss(KEYS.pricing, p);
+            updateUI(); }
+
+        function renderAdminAnnounce(c) { const a = gs(KEYS.announce, { text: '', active: false });
+            c.innerHTML = `
+            <div class="form-group"><label>Текст объявления</label><textarea id="annText" style="min-height:80px;">${a.text}</textarea></div>
+            <div class="form-group"><input type="checkbox" id="annActive" ${a.active?'checked':''}> <label>Показывать</label></div>
+            <button class="submit-btn" onclick="saveAnn()">Сохранить</button>`; }
+
+        function saveAnn() { const t = document.getElementById('annText').value.trim(),
+                a = document.getElementById('annActive').checked;
+            ss(KEYS.announce, { text: t, active: a });
+            updateAnnounce();
+            showToast('Объявление сохранено!'); }
+
+        function renderAdminSettings(c) { const s = gs(KEYS.settings, { openForOrders: true });
+            c.innerHTML = `
+            <div class="form-group"><input type="checkbox" id="openOrd" ${s.openForOrders?'checked':''}> <label>Открыт для заказов</label></div>
+            <button class="submit-btn" onclick="saveSett()">Сохранить</button>`; }
+
+        function saveSett() { ss(KEYS.settings, { openForOrders: document.getElementById('openOrd').checked });
+            updateStatusBadge();
+            showToast('Сохранено!'); }
+
+        // === ТЕРМИНАЛ ВЛАДЕЛЬЦА ===
+        function renderTerminal(c) {
+            c.innerHTML = `
+            <div class="terminal-box" id="terminalOutput">
+                <div class="info">💻 Терминал владельца ERNEX v2.0</div>
+                <div class="info">Введите "help" для списка команд</div>
+            </div>
+            <div class="terminal-input">
+                <input type="text" id="terminalCmd" placeholder="Введи команду..." onkeydown="if(event.key==='Enter')execTerminal()">
+                <button onclick="execTerminal()">▶ Выполнить</button>
+            </div>`;
+        }
+
+        function termPrint(text, cls = 'cmd') {
+            const out = document.getElementById('terminalOutput');
+            if (out) out.innerHTML += `<div class="${cls}">${text}</div>`;
+        }
+
+        function execTerminal() {
+            const input = document.getElementById('terminalCmd');
+            const cmd = input.value.trim();
+            if (!cmd) return;
+            termPrint(`> ${cmd}`, 'cmd');
+            input.value = '';
+            const parts = cmd.split(' ');
+            const action = parts[0].toLowerCase();
+            const arg = parts.slice(1).join(' ');
+
+            switch (action) {
+                case 'help':
+                    termPrint('Доступные команды:', 'info');
+                    termPrint('  reset_all — полный сброс сайта');
+                    termPrint('  promote ID — сделать админом');
+                    termPrint('  demote ID — разжаловать админа');
+                    termPrint('  delete_user ID — удалить пользователя');
+                    termPrint('  ban ID — забанить');
+                    termPrint('  unban ID — разбанить');
+                    termPrint('  clear_orders — удалить все заявки');
+                    termPrint('  clear_reviews — удалить все отзывы');
+                    termPrint('  broadcast текст — объявление на сайт');
+                    termPrint('  stats — статистика');
+                    termPrint('  whoami — информация о владельце');
+                    break;
+                case 'reset_all':
+                    if (confirm('ПОЛНЫЙ СБРОС? Это удалит ВСЁ!')) { localStorage.clear();
+                        initDefaults();
+                        termPrint('✅ Сайт сброшен до начальных настроек.', 'info');
+                        updateUI(); } else termPrint('❌ Отменено', 'err');
+                    break;
+                case 'promote':
+                    if (!arg) { termPrint('Укажи ID: promote u-xxxxx', 'err'); break; }
+                    let pu = gs(KEYS.users, []);
+                    const pf = pu.find(u => u.id === arg);
+                    if (pf && pf.role === 'user') { pf.role = 'admin';
+                        ss(KEYS.users, pu);
+                        termPrint(`✅ ${pf.username} теперь админ`, 'info'); } else termPrint('❌ Не найден или уже админ',
+                        'err');
+                    break;
+                case 'demote':
+                    if (!arg) { termPrint('Укажи ID', 'err'); break; }
+                    let du = gs(KEYS.users, []);
+                    const df = du.find(u => u.id === arg);
+                    if (df && df.role === 'admin') { df.role = 'user';
+                        ss(KEYS.users, du);
+                        termPrint(`✅ ${df.username} разжалован`, 'info'); } else termPrint('❌ Не найден или не админ',
+                        'err');
+                    break;
+                case 'delete_user':
+                    if (!arg) { termPrint('Укажи ID', 'err'); break; }
+                    if (arg === 'owner-001') { termPrint('❌ Нельзя удалить владельца!', 'err'); break; }
+                    let us = gs(KEYS.users, []);
+                    const uf = us.find(u => u.id === arg);
+                    if (uf) { us = us.filter(u => u.id !== arg);
+                        ss(KEYS.users, us);
+                        termPrint(`✅ ${uf.username} удалён`, 'info'); } else termPrint('❌ Не найден', 'err');
+                    break;
+                case 'ban':
+                    if (!arg) { termPrint('Укажи ID', 'err'); break; }
+                    if (arg === 'owner-001') { termPrint('❌ Нельзя забанить владельца!', 'err'); break; }
+                    let bu = gs(KEYS.users, []);
+                    const bf = bu.find(u => u.id === arg);
+                    if (bf) { bf.banned = true;
+                        ss(KEYS.users, bu);
+                        termPrint(`✅ ${bf.username} забанен`, 'info'); } else termPrint('❌ Не найден', 'err');
+                    break;
+                case 'unban':
+                    if (!arg) { termPrint('Укажи ID', 'err'); break; }
+                    let ub = gs(KEYS.users, []);
+                    const ubf = ub.find(u => u.id === arg);
+                    if (ubf) { ubf.banned = false;
+                        ss(KEYS.users, ub);
+                        termPrint(`✅ ${ubf.username} разбанен`, 'info'); } else termPrint('❌ Не найден', 'err');
+                    break;
+                case 'clear_orders':
+                    if (confirm('Удалить все заявки?')) { ss(KEYS.orders, []);
+                        termPrint('✅ Все заявки удалены', 'info'); }
+                    break;
+                case 'clear_reviews':
+                    if (confirm('Удалить все отзывы?')) { ss(KEYS.reviews, []);
+                        termPrint('✅ Все отзывы удалены', 'info');
+                        renderReviews(); }
+                    break;
+                case 'broadcast':
+                    if (!arg) { termPrint('Укажи текст объявления', 'err'); break; }
+                    ss(KEYS.announce, { text: arg, active: true });
+                    updateAnnounce();
+                    termPrint('✅ Объявление опубликовано', 'info');
+                    break;
+                case 'stats':
+                    const users = gs(KEYS.users, []);
+                    const orders = gs(KEYS.orders, []);
+                    const reviews = gs(KEYS.reviews, []);
+                    termPrint(`📊 Статистика сайта:`, 'info');
+                    termPrint(`  👥 Пользователей: ${users.length} (админов: ${users.filter(u=>u.role==='admin').length}, владелец: 1, забанено: ${users.filter(u=>u.banned).length})`);
+                    termPrint(`  📋 Заявок: ${orders.length} (новых: ${orders.filter(o=>o.status==='new').length})`);
+                    termPrint(`  ⭐ Отзывов: ${reviews.length}`);
+                    break;
+                case 'whoami':
+                    termPrint(`👑 Вы — владелец сайта ERNEX`, 'info');
+                    termPrint(`   Логин: ${OWNER_CRED.username}`, 'info');
+                    termPrint(`   Полный контроль над сайтом`, 'info');
+                    break;
+                default:
+                    termPrint(`❌ Неизвестная команда: ${action}. Введите help`, 'err');
+            }
+            const out = document.getElementById('terminalOutput');
+            if (out) out.scrollTop = out.scrollHeight;
+        }
+
+        updateUI();
+        console.log('%c👑 ERNEX Site v2.0 %c| %cOwner: ernex / ernex1337 | Admin: admin / admin123',
+            'color:#ffd700;font-size:1.1rem;', '', 'color:#a29bfe;');
+        console.log('%cТерминал владельца доступен в админ-панели', 'color:#ffd700;');
     </script>
 </body>
 </html>
