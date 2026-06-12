@@ -8,11 +8,11 @@
     <style>
         :root {
             --bg: #0a0a0f;
-            --surface: #12121a;
-            --surface-light: #1a1a26;
+            --surface: #111118;
+            --surface-2: #161622;
+            --surface-3: #1c1c2a;
             --accent: #6c5ce7;
             --accent-glow: #a29bfe;
-            --owner-color: #ffd700;
             --text: #e0e0e0;
             --text-muted: #8888a0;
             --border: #252540;
@@ -20,7 +20,9 @@
             --owner-gradient: linear-gradient(135deg, #ffd700, #ff8c00);
             --card-hover: #1e1e30;
             --shadow: 0 8px 32px rgba(108, 92, 231, 0.15);
-            --radius: 16px;
+            --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.4);
+            --radius: 18px;
+            --radius-sm: 10px;
             --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --success: #4caf50;
             --danger: #f44336;
@@ -41,6 +43,7 @@
             line-height: 1.6;
             overflow-x: hidden;
             min-height: 100vh;
+            background-image: radial-gradient(ellipse at 50% 0%, rgba(108, 92, 231, 0.08) 0%, transparent 60%);
         }
         .particles-bg {
             position: fixed;
@@ -50,7 +53,7 @@
             height: 100%;
             z-index: 0;
             pointer-events: none;
-            opacity: 0.4;
+            opacity: 0.35;
         }
         .particle {
             position: absolute;
@@ -76,24 +79,25 @@
             }
         }
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0 28px;
             position: relative;
             z-index: 1;
         }
         header {
-            padding: 20px 0;
+            padding: 16px 0;
             position: sticky;
             top: 0;
             z-index: 100;
-            backdrop-filter: blur(20px);
-            background: rgba(10, 10, 15, 0.75);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            background: rgba(10, 10, 18, 0.7);
             border-bottom: 1px solid var(--border);
             transition: var(--transition);
         }
         header.scrolled {
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
         }
         .header-inner {
             display: flex;
@@ -103,20 +107,39 @@
             gap: 14px;
         }
         .logo {
-            font-size: 1.7rem;
+            font-size: 1.8rem;
             font-weight: 800;
             background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             cursor: pointer;
             letter-spacing: 1px;
+            position: relative;
         }
-        .logo:hover {
-            transform: scale(1.05);
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            right: -12px;
+            width: 6px;
+            height: 6px;
+            background: var(--accent-glow);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-glow);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                box-shadow: 0 0 4px var(--accent-glow);
+            }
+            50% {
+                box-shadow: 0 0 16px var(--accent-glow);
+            }
         }
         nav {
             display: flex;
-            gap: 16px;
+            gap: 18px;
             align-items: center;
             flex-wrap: wrap;
         }
@@ -127,9 +150,25 @@
             font-size: 0.9rem;
             transition: var(--transition);
             cursor: pointer;
+            padding: 6px 0;
+            position: relative;
+        }
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px;
+            transition: var(--transition);
         }
         nav a:hover {
             color: #fff;
+        }
+        nav a:hover::after {
+            width: 100%;
         }
         .btn-contact {
             background: var(--gradient);
@@ -142,16 +181,17 @@
             font-size: 0.9rem;
             box-shadow: 0 4px 20px rgba(108, 92, 231, 0.3);
             transition: var(--transition);
+            text-decoration: none;
         }
         .btn-contact:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 30px rgba(108, 92, 231, 0.5);
         }
         .user-btn {
-            background: var(--surface-light);
+            background: var(--surface-3);
             border: 1px solid var(--border);
             color: #fff;
-            padding: 8px 14px;
+            padding: 8px 16px;
             border-radius: 50px;
             cursor: pointer;
             font-weight: 600;
@@ -159,23 +199,24 @@
             transition: var(--transition);
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             white-space: nowrap;
         }
         .user-btn img {
-            width: 24px;
-            height: 24px;
+            width: 26px;
+            height: 26px;
             border-radius: 50%;
             object-fit: cover;
+            border: 2px solid var(--border);
         }
         .user-btn.logged-in {
-            background: rgba(76, 175, 80, 0.15);
-            border-color: rgba(76, 175, 80, 0.4);
+            background: rgba(76, 175, 80, 0.12);
+            border-color: rgba(76, 175, 80, 0.35);
         }
         .user-btn.owner-logged-in {
-            background: rgba(255, 215, 0, 0.15);
-            border-color: rgba(255, 215, 0, 0.5);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+            background: rgba(255, 215, 0, 0.12);
+            border-color: rgba(255, 215, 0, 0.4);
+            box-shadow: 0 0 18px rgba(255, 215, 0, 0.15);
         }
         .user-btn:hover {
             border-color: var(--accent);
@@ -188,10 +229,10 @@
             padding: 10px 20px;
             font-weight: 600;
             font-size: 0.9rem;
-            position: relative;
             z-index: 99;
             display: none;
             animation: slideDown 0.4s ease;
+            position: relative;
         }
         .announcement-bar.show {
             display: block;
@@ -207,36 +248,31 @@
             }
         }
         .hero {
-            padding: 70px 0 50px;
+            padding: 80px 0 60px;
             text-align: center;
+            position: relative;
         }
         .hero-badge {
             display: inline-block;
-            background: rgba(108, 92, 231, 0.15);
+            background: rgba(108, 92, 231, 0.12);
             color: var(--accent-glow);
-            padding: 8px 18px;
+            padding: 8px 20px;
             border-radius: 50px;
             font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 22px;
-            border: 1px solid rgba(108, 92, 231, 0.3);
+            margin-bottom: 24px;
+            border: 1px solid rgba(108, 92, 231, 0.25);
             animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0%,
-            100% {
-                box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.4);
-            }
-            50% {
-                box-shadow: 0 0 0 14px rgba(108, 92, 231, 0);
-            }
+            backdrop-filter: blur(10px);
         }
         .hero h1 {
-            font-size: 3.2rem;
+            font-size: 3.6rem;
             font-weight: 800;
             background: linear-gradient(135deg, #fff 0%, #c4c4d0 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+            margin-bottom: 12px;
         }
         .hero h1 span {
             background: var(--gradient);
@@ -244,148 +280,158 @@
             -webkit-text-fill-color: transparent;
         }
         .hero .subtitle {
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             color: var(--text-muted);
-            max-width: 600px;
-            margin: 12px auto 28px;
+            max-width: 620px;
+            margin: 12px auto 30px;
         }
         .status-badge {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 10px 20px;
+            gap: 8px;
+            padding: 10px 22px;
             border-radius: 50px;
             font-weight: 600;
             font-size: 0.9rem;
-            margin-bottom: 16px;
+            margin-bottom: 18px;
             cursor: default;
+            backdrop-filter: blur(10px);
         }
         .status-open {
-            background: rgba(76, 175, 80, 0.15);
-            border: 1px solid rgba(76, 175, 80, 0.4);
+            background: rgba(76, 175, 80, 0.12);
+            border: 1px solid rgba(76, 175, 80, 0.35);
             color: #81c784;
         }
         .status-closed {
-            background: rgba(244, 67, 54, 0.15);
-            border: 1px solid rgba(244, 67, 54, 0.4);
+            background: rgba(244, 67, 54, 0.12);
+            border: 1px solid rgba(244, 67, 54, 0.35);
             color: #ef9a9a;
         }
         .schedule-badge {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            background: rgba(255, 152, 0, 0.1);
-            border: 1px solid rgba(255, 152, 0, 0.3);
+            gap: 8px;
+            background: rgba(255, 152, 0, 0.08);
+            border: 1px solid rgba(255, 152, 0, 0.25);
             color: #ffb74d;
-            padding: 8px 16px;
+            padding: 10px 20px;
             border-radius: 50px;
             font-size: 0.85rem;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
+            backdrop-filter: blur(10px);
         }
         .section-title {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             font-weight: 700;
             text-align: center;
             color: #fff;
-            margin-bottom: 28px;
+            margin-bottom: 32px;
             display: inline-block;
             position: relative;
         }
         .section-title::after {
             content: '';
             position: absolute;
-            bottom: -6px;
+            bottom: -8px;
             left: 50%;
             transform: translateX(-50%);
-            width: 40px;
+            width: 50px;
             height: 3px;
             background: var(--accent);
-            border-radius: 2px;
+            border-radius: 3px;
         }
         .title-wrapper {
             text-align: center;
-            margin-bottom: 28px;
+            margin-bottom: 32px;
         }
         .stack-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 14px;
             justify-content: center;
         }
         .stack-item {
             background: var(--surface);
             border: 1px solid var(--border);
-            padding: 12px 20px;
-            border-radius: 10px;
+            padding: 14px 24px;
+            border-radius: var(--radius-sm);
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             transition: var(--transition);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            backdrop-filter: blur(10px);
         }
         .stack-item i {
             color: var(--accent-glow);
+            font-size: 1.2rem;
         }
         .stack-item:hover {
             border-color: var(--accent);
-            transform: translateY(-3px);
+            transform: translateY(-4px);
             box-shadow: var(--shadow);
+            background: var(--surface-2);
         }
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 18px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
         }
         .service-card {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 28px 22px;
+            padding: 32px 24px;
             text-align: center;
             transition: var(--transition);
+            backdrop-filter: blur(10px);
+            cursor: pointer;
         }
         .service-card i {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 14px;
+            margin-bottom: 16px;
+            display: block;
         }
         .service-card h3 {
             color: #fff;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
+            font-size: 1.2rem;
         }
         .service-card p {
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
         .service-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-6px);
             border-color: var(--accent);
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-lg);
+            background: var(--surface-2);
         }
         .price-category {
-            margin-bottom: 36px;
+            margin-bottom: 40px;
         }
         .price-category h3 {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: #fff;
-            margin-bottom: 16px;
+            margin-bottom: 18px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
         .price-table {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 12px;
         }
         .price-item {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 14px 18px;
+            border-radius: var(--radius-sm);
+            padding: 16px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -394,7 +440,7 @@
         .price-item .item-name {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             font-size: 0.9rem;
         }
         .price-item .item-price {
@@ -403,41 +449,45 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             white-space: nowrap;
-            margin-left: 10px;
+            margin-left: 12px;
         }
         .price-item:hover {
             border-color: var(--accent);
-            transform: translateX(3px);
+            transform: translateX(4px);
+            box-shadow: var(--shadow);
+            background: var(--surface-2);
         }
         .pricing-banner {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 28px;
+            padding: 32px;
             text-align: center;
-            margin: 30px 0;
+            margin: 36px 0;
+            backdrop-filter: blur(10px);
         }
         .pricing-banner .price-tag {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 800;
             background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         .form-wrapper {
-            max-width: 600px;
+            max-width: 620px;
             margin: 0 auto;
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 32px;
+            padding: 36px;
+            backdrop-filter: blur(10px);
         }
         .form-group {
-            margin-bottom: 16px;
+            margin-bottom: 18px;
         }
         .form-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
             font-weight: 600;
             font-size: 0.85rem;
             color: var(--text);
@@ -447,16 +497,17 @@
         .form-group select {
             width: 100%;
             padding: 12px 16px;
-            background: var(--surface-light);
+            background: var(--surface-2);
             border: 1px solid var(--border);
-            border-radius: 10px;
+            border-radius: var(--radius-sm);
             color: #fff;
             font-family: inherit;
             outline: none;
             transition: var(--transition);
+            font-size: 0.95rem;
         }
         .form-group textarea {
-            min-height: 110px;
+            min-height: 120px;
             resize: vertical;
         }
         .form-group select {
@@ -467,7 +518,7 @@
         .form-group textarea:focus,
         .form-group select:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 15px rgba(108, 92, 231, 0.2);
+            box-shadow: 0 0 18px rgba(108, 92, 231, 0.2);
         }
         .submit-btn {
             width: 100%;
@@ -475,10 +526,12 @@
             background: var(--gradient);
             color: #fff;
             border: none;
-            border-radius: 10px;
+            border-radius: var(--radius-sm);
             font-weight: 700;
             cursor: pointer;
             transition: var(--transition);
+            font-size: 1rem;
+            box-shadow: 0 4px 20px rgba(108, 92, 231, 0.3);
         }
         .submit-btn.owner-btn {
             background: var(--owner-gradient);
@@ -486,7 +539,7 @@
         }
         .submit-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.4);
+            box-shadow: 0 8px 28px rgba(108, 92, 231, 0.45);
         }
         .submit-btn.loading {
             opacity: 0.7;
@@ -494,49 +547,55 @@
         }
         .contact-links {
             display: flex;
-            gap: 16px;
+            gap: 18px;
             justify-content: center;
             flex-wrap: wrap;
         }
         .contact-link {
             background: var(--surface);
             border: 1px solid var(--border);
-            padding: 14px 22px;
-            border-radius: 10px;
+            padding: 14px 24px;
+            border-radius: var(--radius-sm);
             color: var(--text);
             text-decoration: none;
             font-weight: 600;
             transition: var(--transition);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
         .contact-link:hover {
             border-color: var(--accent);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
             color: #fff;
+            box-shadow: var(--shadow);
         }
         .reviews-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 16px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 18px;
+            margin-bottom: 32px;
         }
         .review-card {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 20px;
+            padding: 24px;
+            transition: var(--transition);
+        }
+        .review-card:hover {
+            border-color: var(--accent);
+            box-shadow: var(--shadow);
         }
         .review-header {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
+            gap: 12px;
+            margin-bottom: 12px;
         }
         .review-avatar {
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             background: var(--gradient);
             display: flex;
@@ -545,6 +604,7 @@
             font-weight: 700;
             color: #fff;
             flex-shrink: 0;
+            font-size: 1.1rem;
         }
         .review-author {
             font-weight: 600;
@@ -556,19 +616,20 @@
         }
         .review-stars {
             color: #ffc107;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
         .review-text {
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
         }
         .star-rating {
             display: flex;
-            gap: 6px;
-            font-size: 1.6rem;
+            gap: 8px;
+            font-size: 1.8rem;
             cursor: pointer;
             justify-content: center;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
         .star-rating i {
             color: #444;
@@ -577,13 +638,89 @@
         .star-rating i.active {
             color: #ffc107;
         }
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 20px;
+        }
+        .article-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+        }
+        .article-card:hover {
+            border-color: var(--accent);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+        .article-prefix {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 2;
+        }
+        .prefix-info {
+            background: #2196f3;
+            color: #fff;
+        }
+        .prefix-important {
+            background: #f44336;
+            color: #fff;
+        }
+        .prefix-actual {
+            background: #4caf50;
+            color: #fff;
+        }
+        .prefix-outdated {
+            background: #9e9e9e;
+            color: #fff;
+        }
+        .prefix-guide {
+            background: #ff9800;
+            color: #000;
+        }
+        .prefix-lifehack {
+            background: #e91e63;
+            color: #fff;
+        }
+        .article-body {
+            padding: 40px 20px 20px;
+        }
+        .article-body h3 {
+            color: #fff;
+            margin-bottom: 8px;
+            font-size: 1.15rem;
+        }
+        .article-body p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        .article-meta {
+            display: flex;
+            gap: 14px;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.85);
             z-index: 9999;
             display: flex;
             align-items: center;
@@ -601,23 +738,23 @@
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            max-width: 850px;
+            max-width: 900px;
             width: 100%;
-            max-height: 90vh;
+            max-height: 92vh;
             overflow-y: auto;
-            padding: 28px;
+            padding: 32px;
             position: relative;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            box-shadow: var(--shadow-lg);
         }
         .modal-close {
             position: absolute;
-            top: 12px;
-            right: 12px;
-            background: var(--surface-light);
+            top: 14px;
+            right: 14px;
+            background: var(--surface-3);
             border: 1px solid var(--border);
             color: #fff;
-            width: 32px;
-            height: 32px;
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
@@ -628,70 +765,38 @@
         }
         .modal-close:hover {
             background: var(--danger);
+            border-color: var(--danger);
         }
         .modal h2 {
-            font-size: 1.4rem;
-            margin-bottom: 16px;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
             color: #fff;
             text-align: center;
         }
         .terminal-box {
             background: #0a0a0a;
             border: 2px solid #333;
-            border-radius: 10px;
-            padding: 16px;
+            border-radius: var(--radius-sm);
+            padding: 18px;
             font-family: 'Courier New', monospace;
             color: #0f0;
-            max-height: 250px;
+            max-height: 280px;
             overflow-y: auto;
-            margin-top: 12px;
+            margin-top: 14px;
             font-size: 0.85rem;
-        }
-        .terminal-box .cmd {
-            color: #0f0;
-        }
-        .terminal-box .err {
-            color: #f44;
-        }
-        .terminal-box .info {
-            color: #ff0;
-        }
-        .terminal-input {
-            display: flex;
-            gap: 8px;
-            margin-top: 8px;
-        }
-        .terminal-input input {
-            flex: 1;
-            background: #0a0a0a;
-            border: 1px solid #333;
-            color: #0f0;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-family: 'Courier New', monospace;
-            outline: none;
-        }
-        .terminal-input button {
-            background: #333;
-            color: #0f0;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-family: 'Courier New', monospace;
         }
         .toast {
             position: fixed;
-            bottom: 24px;
-            right: 24px;
-            padding: 14px 20px;
-            border-radius: 10px;
+            bottom: 28px;
+            right: 28px;
+            padding: 14px 22px;
+            border-radius: var(--radius-sm);
             color: #fff;
             font-weight: 600;
             z-index: 10000;
             animation: slideInRight 0.4s ease, fadeOut 0.4s ease 3s forwards;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-            max-width: 380px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            max-width: 400px;
         }
         .toast.success {
             background: var(--success);
@@ -717,15 +822,15 @@
         }
         .admin-tabs {
             display: flex;
-            gap: 6px;
+            gap: 8px;
             flex-wrap: wrap;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
             border-bottom: 1px solid var(--border);
-            padding-bottom: 10px;
+            padding-bottom: 12px;
         }
         .admin-tab {
-            padding: 8px 16px;
-            border-radius: 6px;
+            padding: 8px 18px;
+            border-radius: 20px;
             cursor: pointer;
             font-size: 0.85rem;
             font-weight: 600;
@@ -739,79 +844,51 @@
             border-color: var(--accent);
         }
         .admin-tab.owner-only {
-            border-color: var(--owner-color);
-            color: var(--owner-color);
+            border-color: var(--owner-color, #ffd700);
+            color: var(--owner-color, #ffd700);
         }
         .admin-tab.owner-only.active {
             background: var(--owner-gradient);
             color: #000;
         }
-        .orders-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.82rem;
-        }
-        .orders-table th {
-            background: var(--surface-light);
-            padding: 10px;
-            text-align: left;
-            color: var(--accent-glow);
-            border-bottom: 2px solid var(--border);
-        }
-        .orders-table td {
-            padding: 10px;
-            border-bottom: 1px solid var(--border);
-            color: var(--text-muted);
-        }
         .badge {
             display: inline-block;
-            padding: 3px 10px;
+            padding: 4px 12px;
             border-radius: 50px;
             font-size: 0.78rem;
             font-weight: 600;
         }
-        .badge-new {
-            background: rgba(255, 152, 0, 0.2);
-            color: #ffb74d;
-        }
-        .badge-read {
-            background: rgba(76, 175, 80, 0.2);
-            color: #81c784;
+        .badge-owner {
+            background: rgba(255, 215, 0, 0.25);
+            color: #ffd700;
+            border: 1px solid rgba(255, 215, 0, 0.4);
         }
         .badge-admin {
-            background: rgba(108, 92, 231, 0.3);
+            background: rgba(108, 92, 231, 0.25);
             color: #a29bfe;
         }
-        .badge-owner {
-            background: rgba(255, 215, 0, 0.3);
-            color: #ffd700;
-            border: 1px solid rgba(255, 215, 0, 0.5);
-        }
         .badge-banned {
-            background: rgba(244, 67, 54, 0.3);
+            background: rgba(244, 67, 54, 0.25);
             color: #ef9a9a;
         }
         footer {
             text-align: center;
-            padding: 24px 0;
+            padding: 28px 0;
             color: var(--text-muted);
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             border-top: 1px solid var(--border);
-            margin-top: 40px;
+            margin-top: 50px;
         }
         footer span {
             color: var(--accent-glow);
         }
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             .modal {
-                padding: 18px 14px;
+                padding: 20px 16px;
                 max-height: 95vh;
-            }
-            .orders-table {
-                font-size: 0.7rem;
             }
         }
     </style>
@@ -819,13 +896,13 @@
 <body>
     <div class="particles-bg" id="particlesBg"></div>
     <div class="announcement-bar" id="announcementBar"></div>
-
     <header id="header">
         <div class="container header-inner">
             <div class="logo" onclick="scrollToTop()">ERNEX</div>
             <nav>
                 <a href="#about">Обо мне</a>
                 <a href="#pricing">Цены</a>
+                <a href="#info">Инфо</a>
                 <a href="#reviews">Отзывы</a>
                 <a href="#form">Заказать</a>
                 <a href="#contact" class="btn-contact">Связаться</a>
@@ -840,20 +917,18 @@
         <div class="hero-badge"><i class="fas fa-code"></i> Middle-разработчик</div>
         <h1>Привет! Я <span>ERNEX</span></h1>
         <p class="subtitle">Разработка сайтов, чат-ботов и кастомных решений под твой проект.</p>
-        <div id="statusContainer">
-            <div class="status-badge status-open"><span style="width:8px;height:8px;background:#81c784;border-radius:50%;display:inline-block;animation:blink 1.5s infinite;"></span> Открыт для заказов</div>
-        </div>
+        <div id="statusContainer"><div class="status-badge status-open"><span style="width:9px;height:9px;background:#81c784;border-radius:50%;display:inline-block;animation:blink 1.5s infinite;"></span> Открыт для заказов</div></div>
         <div class="schedule-badge"><i class="fas fa-clock"></i> Пн – Пт: 11:30 – 19:30</div>
         <br>
-        <a href="#form" class="btn-contact" style="font-size:1rem;padding:12px 30px;"><i class="fas fa-paper-plane"></i> Обсудить проект</a>
+        <a href="#form" class="btn-contact" style="font-size:1rem;padding:14px 32px;"><i class="fas fa-paper-plane"></i> Обсудить проект</a>
     </section>
 
-    <section class="container" id="stack" style="padding:40px 0;">
+    <section class="container" id="stack" style="padding:50px 0;">
         <div class="title-wrapper"><h2 class="section-title">Мой стек</h2></div>
         <div class="stack-grid" id="stackGrid"></div>
     </section>
 
-    <section class="container" id="services" style="padding:40px 0;">
+    <section class="container" id="services" style="padding:50px 0;">
         <div class="title-wrapper"><h2 class="section-title">Что я делаю</h2></div>
         <div class="services-grid">
             <div class="service-card"><i class="fas fa-globe"></i><h3>Сайты</h3><p>Лендинги, корпоративные, веб-приложения.</p></div>
@@ -862,56 +937,53 @@
         </div>
     </section>
 
-    <section class="container" id="pricing" style="padding:40px 0;">
+    <section class="container" id="pricing" style="padding:50px 0;">
         <div class="title-wrapper"><h2 class="section-title">Прайс-лист</h2></div>
         <div id="pricingContainer"></div>
     </section>
 
-    <div class="container"><div class="pricing-banner">
-            <div class="price-tag">Бесплатно не работаю</div>
-            <p style="color:var(--text-muted);">Оплата — уважение к труду.</p>
-    </div></div>
+    <div class="container"><div class="pricing-banner"><div class="price-tag">Бесплатно не работаю</div><p style="color:var(--text-muted);margin-top:10px;">Оплата — уважение к труду.</p></div></div>
 
-    <section class="container" id="reviews" style="padding:40px 0;">
-        <div class="title-wrapper"><h2 class="section-title">Отзывы</h2></div>
-        <div class="reviews-grid" id="reviewsGrid"></div>
-        <div class="form-wrapper" style="max-width:550px;">
-            <h3 style="text-align:center;color:#fff;margin-bottom:12px;">Оставить отзыв</h3>
+    <section class="container" id="info" style="padding:50px 0;">
+        <div class="title-wrapper"><h2 class="section-title">📚 Инфо</h2></div>
+        <div id="infoContent"></div>
+    </section>
+
+    <section class="container" id="reviews" style="padding:50px 0;">
+        <div class="title-wrapper"><h2 class="section-title">⭐ Отзывы</h2></div>
+        <div class="reviews-grid" id="reviewsGrid"><p style="color:var(--text-muted);text-align:center;grid-column:1/-1;">Пока нет отзывов. Будь первым!</p></div>
+        <div class="form-wrapper" style="max-width:560px;">
+            <h3 style="text-align:center;color:#fff;margin-bottom:14px;">Оставить отзыв</h3>
             <form id="reviewForm">
                 <div class="form-group"><label>Имя</label><input type="text" id="reviewName" required minlength="2"></div>
-                <div class="form-group"><label>Оценка</label>
-                    <div class="star-rating" id="starRating">
-                        <i class="fas fa-star" data-star="1"></i><i class="fas fa-star" data-star="2"></i><i class="fas fa-star" data-star="3"></i><i class="fas fa-star" data-star="4"></i><i class="fas fa-star" data-star="5"></i>
-                    </div>
-                    <input type="hidden" id="reviewStars" value="0">
-                </div>
+                <div class="form-group"><label>Оценка</label><div class="star-rating" id="starRating"><i class="fas fa-star" data-star="1"></i><i class="fas fa-star" data-star="2"></i><i class="fas fa-star" data-star="3"></i><i class="fas fa-star" data-star="4"></i><i class="fas fa-star" data-star="5"></i></div><input type="hidden" id="reviewStars" value="0"></div>
                 <div class="form-group"><label>Отзыв</label><textarea id="reviewText" required minlength="10"></textarea></div>
                 <button type="submit" class="submit-btn">Отправить отзыв</button>
             </form>
         </div>
     </section>
 
-    <section class="container" id="form" style="padding:40px 0;">
+    <section class="container" id="form" style="padding:50px 0;">
         <div class="title-wrapper"><h2 class="section-title">Оставить заявку</h2></div>
         <div class="form-wrapper">
-            <h3 style="text-align:center;color:#fff;margin-bottom:12px;">Заказать разработку</h3>
+            <h3 style="text-align:center;color:#fff;margin-bottom:14px;">Заказать разработку</h3>
             <form id="orderForm">
                 <div class="form-group"><label>Имя</label><input type="text" id="orderName" required minlength="2"></div>
-                <div class="form-group"><label>Контакт (TG/VK/Email)</label><input type="text" id="orderContact" required minlength="3"></div>
+                <div class="form-group"><label>Контакт</label><input type="text" id="orderContact" required minlength="3"></div>
                 <div class="form-group"><label>Услуга</label><select id="orderService" required><option value="">— Выбери —</option></select></div>
                 <div class="form-group"><label>Бюджет</label><input type="text" id="orderBudget"></div>
                 <div class="form-group"><label>Описание</label><textarea id="orderMessage" required minlength="10"></textarea></div>
-                <div class="form-group" style="display:flex;align-items:center;gap:8px;font-size:0.8rem;color:var(--text-muted);">
-                    <input type="checkbox" id="orderAgree" required> Принимаю <span style="color:var(--accent-glow);cursor:pointer;text-decoration:underline;" onclick="openAgreement()">условия</span>
+                <div style="display:flex;align-items:center;gap:8px;font-size:0.8rem;color:var(--text-muted);margin-bottom:14px;">
+                    <input type="checkbox" id="orderAgree" required> Принимаю <span style="color:var(--accent-glow);cursor:pointer;text-decoration:underline;" onclick="openAgreement()">условия соглашения</span>
                 </div>
                 <button type="submit" class="submit-btn">Отправить заявку</button>
             </form>
         </div>
     </section>
 
-    <section class="container" id="contact" style="padding:40px 0;text-align:center;">
+    <section class="container" id="contact" style="padding:50px 0;text-align:center;">
         <div class="title-wrapper"><h2 class="section-title">Контакты</h2></div>
-        <p style="color:#ffb74d;margin-bottom:16px;"><i class="fas fa-clock"></i> Пн – Пт, 11:30 – 19:30</p>
+        <p style="color:#ffb74d;margin-bottom:18px;"><i class="fas fa-clock"></i> Пн – Пт, 11:30 – 19:30</p>
         <div class="contact-links">
             <a href="https://vk.com/pawn_official" target="_blank" class="contact-link"><i class="fab fa-vk"></i> VK</a>
             <a href="https://t.me/pawn_official1" target="_blank" class="contact-link"><i class="fab fa-telegram"></i> TG</a>
@@ -919,62 +991,31 @@
         </div>
     </section>
 
-    <footer><div class="container">© 2025 <span>ERNEX</span> | <span style="cursor:pointer;text-decoration:underline;" onclick="openAgreement()">Соглашение</span></div></footer>
+    <footer><div class="container">© 2025 <span>ERNEX</span> | <span style="cursor:pointer;text-decoration:underline;" onclick="openAgreement()">Пользовательское соглашение</span></div></footer>
 
-    <div class="modal-overlay" id="agreementModal"><div class="modal"><button class="modal-close" onclick="closeModal('agreementModal')"><i class="fas fa-times"></i></button><h2>Соглашение</h2><p style="color:var(--text-muted);">Оплата = принятие условий. Возврата нет. Сроки ориентировочные.</p></div></div>
-
-    <div class="modal-overlay" id="authModal"><div class="modal" style="max-width:420px;"><button class="modal-close" onclick="closeModal('authModal')"><i class="fas fa-times"></i></button><h2 id="authTitle">Авторизация</h2>
-        <form id="authForm">
-            <div class="form-group"><label>Логин</label><input type="text" id="authLogin" required minlength="3"></div>
-            <div class="form-group"><label>Пароль</label><input type="password" id="authPass" required minlength="4"></div>
-            <div class="form-group" id="authAvatarGroup" style="display:none;"><label>Ссылка на аватарку</label><input type="text" id="authAvatar" placeholder="https://... (GIF тоже можно)"></div>
-            <button type="submit" class="submit-btn" id="authSubmitBtn">Войти</button>
-            <p style="text-align:center;margin-top:12px;font-size:0.8rem;color:var(--text-muted);">
-                <span id="authToggleText">Нет аккаунта?</span> <span style="color:var(--accent-glow);cursor:pointer;" id="authToggleBtn">Регистрация</span>
-            </p>
-        </form>
-    </div></div>
-
-    <div class="modal-overlay" id="profileModal"><div class="modal" style="max-width:420px;"><button class="modal-close" onclick="closeModal('profileModal')"><i class="fas fa-times"></i></button><h2>Мой профиль</h2>
-        <div id="profileContent"></div>
-    </div></div>
-
-    <div class="modal-overlay" id="adminModal"><div class="modal"><button class="modal-close" onclick="closeModal('adminModal')"><i class="fas fa-times"></i></button><h2 id="adminPanelTitle">👑 Панель управления</h2>
-        <div class="admin-tabs" id="adminTabs">
-            <div class="admin-tab active" data-tab="orders">📋 Заявки</div>
-            <div class="admin-tab" data-tab="users">👥 Пользователи</div>
-            <div class="admin-tab" data-tab="pricing">💰 Прайс</div>
-            <div class="admin-tab" data-tab="announce">📢 Объявления</div>
-            <div class="admin-tab" data-tab="settings">⚙️ Настройки</div>
-            <div class="admin-tab owner-only" data-tab="terminal" id="terminalTab">💻 Терминал</div>
-        </div>
-        <div id="adminTabContent"></div>
-    </div></div>
+    <div class="modal-overlay" id="agreementModal"><div class="modal" id="agreementModalContent"><button class="modal-close" onclick="closeModal('agreementModal')"><i class="fas fa-times"></i></button></div></div>
+    <div class="modal-overlay" id="authModal"><div class="modal" style="max-width:440px;"><button class="modal-close" onclick="closeModal('authModal')"><i class="fas fa-times"></i></button><h2 id="authTitle">Авторизация</h2><form id="authForm"><div class="form-group"><label>Логин</label><input type="text" id="authLogin" required minlength="3"></div><div class="form-group"><label>Пароль</label><input type="password" id="authPass" required minlength="4"></div><div class="form-group" id="authAvatarGroup" style="display:none;"><label>Аватарка (ссылка, можно GIF)</label><input type="text" id="authAvatar"></div><button type="submit" class="submit-btn" id="authSubmitBtn">Войти</button><p style="text-align:center;margin-top:12px;font-size:0.82rem;color:var(--text-muted);"><span id="authToggleText">Нет аккаунта?</span> <span style="color:var(--accent-glow);cursor:pointer;" id="authToggleBtn">Регистрация</span></p></form></div></div>
+    <div class="modal-overlay" id="profileModal"><div class="modal" style="max-width:440px;"><button class="modal-close" onclick="closeModal('profileModal')"><i class="fas fa-times"></i></button><h2>Профиль</h2><div id="profileContent"></div></div></div>
+    <div class="modal-overlay" id="adminModal"><div class="modal"><button class="modal-close" onclick="closeModal('adminModal')"><i class="fas fa-times"></i></button><h2 id="adminPanelTitle">Панель управления</h2><div class="admin-tabs" id="adminTabs"><div class="admin-tab active" data-tab="orders">Заявки</div><div class="admin-tab" data-tab="users">Пользователи</div><div class="admin-tab" data-tab="pricing">Прайс</div><div class="admin-tab" data-tab="articles">Статьи</div><div class="admin-tab" data-tab="announce">Объявления</div><div class="admin-tab" data-tab="settings">Настройки</div><div class="admin-tab owner-only" data-tab="terminal">Терминал</div></div><div id="adminTabContent"></div></div></div>
+    <div class="modal-overlay" id="articleModal"><div class="modal"><button class="modal-close" onclick="closeModal('articleModal')"><i class="fas fa-times"></i></button><div id="articleFullContent"></div></div></div>
 
     <script>
-        const KEYS = { users: 'ernex_users_v2', current: 'ernex_current_v2', orders: 'ernex_orders_v2', reviews: 'ernex_reviews_v2',
-            pricing: 'ernex_pricing_v2', announce: 'ernex_announce_v2', settings: 'ernex_settings_v2' };
-        const OWNER_CRED = { username: 'ernex', password: 'ernex1337' };
+        const KEYS = { users: 'ernex_v3_users', current: 'ernex_v3_current', orders: 'ernex_v3_orders', reviews: 'ernex_v3_reviews', pricing: 'ernex_v3_pricing', announce: 'ernex_v3_announce', settings: 'ernex_v3_settings', articles: 'ernex_v3_articles' };
+        const OWNER = { username: 'ernex', password: 'ernex1337' };
+        const STATUSES = ['Легенда', 'Местный', 'Браток', 'Кент', 'Пикми'];
 
         function gs(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }
 
         function ss(k, v) { localStorage.setItem(k, JSON.stringify(v)); }
 
-        function initDefaults() {
+        function init() {
             let users = gs(KEYS.users, []);
-            if (!users.find(u => u.username === 'ernex')) {
-                users.push({ id: 'owner-001', username: 'ernex', password: 'ernex1337', role: 'owner', avatar: '',
-                    createdAt: new Date().toISOString(), banned: false });
-            }
-            if (!users.find(u => u.username === 'admin')) {
-                users.push({ id: 'admin-001', username: 'admin', password: 'admin123', role: 'admin', avatar: '',
-                    createdAt: new Date().toISOString(), banned: false });
-            }
+            if (!users.find(u => u.username === 'ernex')) users.push({ id: 'owner-001', username: 'ernex', password: 'ernex1337',
+                role: 'owner', avatar: '', createdAt: new Date().toISOString(), banned: false, status: 'Легенда' });
+            if (!users.find(u => u.username === 'admin')) users.push({ id: 'admin-001', username: 'admin', password: 'admin123',
+                role: 'admin', avatar: '', createdAt: new Date().toISOString(), banned: false, status: '' });
             ss(KEYS.users, users);
-            if (!localStorage.getItem(KEYS.reviews)) ss(KEYS.reviews, [
-                { name: 'Алексей', stars: 5, text: 'Отличный разработчик! Рекомендую.', date: '2025-12-15' },
-                { name: 'Марина', stars: 5, text: 'Сайт под ключ — всё супер!', date: '2025-11-20' },
-            ]);
+            if (!localStorage.getItem(KEYS.reviews)) ss(KEYS.reviews, []);
             if (!localStorage.getItem(KEYS.pricing)) ss(KEYS.pricing, [
                 { cat: '🎮 Проекты', items: [{ name: 'BLACK RUSSIA 2026', price: '350₽' }, { name: 'BLACK RUSSIA 2023',
                         price: '200₽' }, { name: 'BRILLIANT RP', price: '200₽' }, { name: 'MATRESHKA RP', price: '200₽' },
@@ -991,45 +1032,38 @@
             ]);
             if (!localStorage.getItem(KEYS.announce)) ss(KEYS.announce, { text: '', active: false });
             if (!localStorage.getItem(KEYS.settings)) ss(KEYS.settings, { openForOrders: true });
+            if (!localStorage.getItem(KEYS.articles)) ss(KEYS.articles, []);
         }
-        initDefaults();
-
+        init();
         let currentUser = gs(KEYS.current, null);
 
         function isOwner() { return currentUser && currentUser.role === 'owner'; }
 
         function isAdmin() { return currentUser && (currentUser.role === 'admin' || currentUser.role === 'owner'); }
-
-        (function() {
-            const bg = document.getElementById('particlesBg');
-            for (let i = 0; i < 30; i++) {
-                const p = document.createElement('div');
+        (function particles() { const bg = document.getElementById('particlesBg'); for (let i = 0; i < 35; i++) { const p =
+                    document.createElement('div');
                 p.className = 'particle';
                 p.style.cssText =
                     `width:${Math.random()*4+2}px;height:${Math.random()*4+2}px;left:${Math.random()*100}%;animation-duration:${Math.random()*15+10}s;animation-delay:${Math.random()*10}s;`;
-                bg.appendChild(p);
-            }
-        })();
-
-        ['Web', 'Pawn', 'Java', 'JavaScript', 'Python', 'CSS', 'HTML', 'Node.js', 'SQL', 'Git'].forEach(t => {
-            const d = document.createElement('div');
+                bg.appendChild(p); } })();
+        ['Web', 'Pawn', 'Java', 'JavaScript', 'Python', 'CSS', 'HTML', 'Node.js', 'SQL', 'Git'].forEach(t => { const d =
+                document.createElement('div');
             d.className = 'stack-item';
             d.innerHTML = `<i class="fas fa-code"></i> ${t}`;
-            document.getElementById('stackGrid').appendChild(d);
-        });
+            document.getElementById('stackGrid').appendChild(d); });
 
         function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
-        function showToast(m, t = 'success') { const old = document.querySelector('.toast'); if (old) old.remove(); const el =
+        function showToast(m, t = 'success') { const o = document.querySelector('.toast'); if (o) o.remove(); const e =
                 document.createElement('div');
-            el.className = `toast ${t}`;
-            el.textContent = m;
-            document.body.appendChild(el);
-            setTimeout(() => el.remove(), 3400); }
+            e.className = `toast ${t}`;
+            e.textContent = m;
+            document.body.appendChild(e);
+            setTimeout(() => e.remove(), 3400); }
 
         function openModal(id) { document.getElementById(id).classList.add('active');
             document.body.style.overflow = 'hidden'; if (id === 'adminModal') { updateAdminTabs();
-                renderAdminTab('orders'); } }
+                renderAdminTab('orders'); } if (id === 'agreementModal') renderAgreement(); }
 
         function closeModal(id) { document.getElementById(id).classList.remove('active');
             document.body.style.overflow = ''; }
@@ -1042,67 +1076,133 @@
 
         function openAgreement() { openModal('agreementModal'); }
 
-        function handleUserBtnClick() {
-            if (currentUser) {
-                if (isOwner() || isAdmin()) openModal('adminModal');
-                else { openModal('profileModal');
-                    renderProfile(); }
-            } else openAuthModal();
+        function renderAgreement() {
+            document.getElementById('agreementModalContent').innerHTML = `
+            <button class="modal-close" onclick="closeModal('agreementModal')"><i class="fas fa-times"></i></button>
+            <h2>📜 Пользовательское соглашение</h2>
+            <div style="color:var(--text-muted);font-size:0.85rem;line-height:1.7;">
+                <h3 style="color:#fff;">1. ОБЩИЕ УСЛОВИЯ</h3>
+                <p><strong>1.1. Безвозвратность оплаты.</strong> Любая оплата является окончательной и невозвращаемой вне зависимости от обстоятельств, включая: задержки выполнения заказа (даже неограниченные по времени), частичное или полное невыполнение обязательств Исполнителем, технические проблемы, форс-мажор, ошибки, изменение требований, несоответствие результата ожиданиям Покупателя. Факт оплаты означает безусловное согласие с отсутствием права на возврат.</p>
+                <p><strong>1.2. Гарантии и доработки.</strong> В течение 7 дней после передачи продукта Исполнитель может (но не обязан) вносить исправления. Гарантия не предоставляется, если Покупатель изменил требования после оплаты или проблемы вызваны сторонним ПО/хостингом/действиями Покупателя.</p>
+                <p><strong>1.3. Отсутствие обязательств по срокам.</strong> Исполнитель не гарантирует соблюдение сроков. Задержки не являются основанием для отмены заказа или возврата средств.</p>
+                <p><strong>1.4. Право на неограниченное продление сроков.</strong> Исполнитель вправе откладывать выполнение заказа на неограниченный срок без объяснения причин. Временные рамки ориентировочны и не имеют юридической силы.</p>
+                <h3 style="color:#fff;">2. УСЛОВИЯ ВЫПОЛНЕНИЯ ЗАКАЗА</h3>
+                <p><strong>2.1.</strong> Работа только после 100% предоплаты. Доплаты и изменения ТЗ оплачиваются отдельно.</p>
+                <p><strong>2.2.</strong> Исполнитель вправе отказаться от заказа без возврата средств, если Покупатель не предоставляет данные/доступы или требования нереализуемы.</p>
+                <h3 style="color:#fff;">3. ОТВЕТСТВЕННОСТЬ</h3>
+                <p><strong>3.1.</strong> Покупатель отказывается от любых претензий (включая судебные) после оплаты.</p>
+                <p><strong>3.2.</strong> Исполнитель не несет ответственности за убытки от использования продукта, работу в неоговоренных условиях, последствия изменений третьими лицами.</p>
+                <p><strong>3.3.</strong> Возврат по инициативе Исполнителя — строго в течение 30 календарных дней с момента уведомления. Срок не подлежит сокращению.</p>
+                <h3 style="color:#fff;">4. ЗАКЛЮЧИТЕЛЬНЫЕ ПОЛОЖЕНИЯ</h3>
+                <p><strong>4.1.</strong> Оплата = принятие всех условий без исключений. Устные договорённости недействительны.</p>
+                <p><strong>4.2.</strong> Споры решаются путём переговоров.</p>
+                <p><strong>4.3.</strong> Реквизиты: Т-Банк (карта) / СБП (номер телефона) / ЮMoney.</p>
+            </div>`;
         }
+
+        function handleUserBtnClick() { if (currentUser) { if (isOwner() || isAdmin()) openModal('adminModal'); else { openModal(
+                    'profileModal');
+                renderProfile(); } } else openAuthModal(); }
 
         function updateUI() {
             const btn = document.getElementById('userBtn');
-            if (currentUser) {
-                btn.classList.add('logged-in');
-                if (isOwner()) btn.classList.add('owner-logged-in');
-                else btn.classList.remove('owner-logged-in');
-                const avatarHtml = currentUser.avatar ?
-                    `<img src="${currentUser.avatar}" style="width:22px;height:22px;border-radius:50%;object-fit:cover;">` :
-                    (isOwner() ? '<i class="fas fa-crown" style="color:#ffd700;"></i>' :
-                        '<i class="fas fa-user-check"></i>');
+            if (currentUser) { btn.classList.add('logged-in'); if (isOwner()) btn.classList.add('owner-logged-in'); else btn
+                    .classList.remove('owner-logged-in');
                 btn.innerHTML =
-                    `${avatarHtml} <span id="userBtnText">${currentUser.username}${isOwner()?' 👑':''}</span>`;
-            } else { btn.classList.remove('logged-in', 'owner-logged-in');
-                btn.innerHTML = '<i class="fas fa-user"></i> <span id="userBtnText">Войти</span>'; }
+                    `${currentUser.avatar?`<img src="${currentUser.avatar}">`:(isOwner()?'<i class="fas fa-crown" style="color:#ffd700;"></i>':'<i class="fas fa-user-check"></i>')} <span>${currentUser.username}${isOwner()?' 👑':''}${currentUser.status?` [${currentUser.status}]`:''}</span>`; } else { btn
+                    .classList.remove('logged-in', 'owner-logged-in');
+                btn.innerHTML = '<i class="fas fa-user"></i> <span>Войти</span>'; }
             updateStatusBadge();
             updateAnnouncement();
             renderPricing();
             renderReviews();
+            renderArticles();
             populateOrderSelect();
         }
 
-        function updateStatusBadge() { const s = gs(KEYS.settings, { openForOrders: true }); document.getElementById(
-                'statusContainer').innerHTML = s.openForOrders ?
-            '<div class="status-badge status-open"><span style="width:8px;height:8px;background:#81c784;border-radius:50%;display:inline-block;animation:blink 1.5s infinite;"></span> Открыт для заказов</div>' :
-            '<div class="status-badge status-closed"><i class="fas fa-lock"></i> Закрыто</div>'; }
+        function updateStatusBadge() { const s = gs(KEYS.settings, { openForOrders: true });
+            document.getElementById('statusContainer').innerHTML = s.openForOrders ?
+                '<div class="status-badge status-open"><span style="width:9px;height:9px;background:#81c784;border-radius:50%;display:inline-block;animation:blink 1.5s infinite;"></span> Открыт для заказов</div>' :
+                '<div class="status-badge status-closed"><i class="fas fa-lock"></i> Закрыто</div>'; }
 
         function updateAnnouncement() { const a = gs(KEYS.announce, { text: '', active: false });
             const bar = document.getElementById('announcementBar'); if (a.active && a.text) { bar.textContent = '📢 ' + a
                 .text;
                 bar.classList.add('show'); } else bar.classList.remove('show'); }
 
-        function renderPricing() { const p = gs(KEYS.pricing, []);
-            document.getElementById('pricingContainer').innerHTML = p.map(cat => `
-                <div class="price-category"><h3>${cat.cat}</h3><div class="price-table">${cat.items.map(i=>`<div class="price-item"><span class="item-name">${i.name}</span><span class="item-price">${i.price}</span></div>`).join('')}</div></div>
-            `).join(''); }
+        function renderPricing() { document.getElementById('pricingContainer').innerHTML = gs(KEYS.pricing, []).map(c => `
+                <div class="price-category"><h3>${c.cat}</h3><div class="price-table">${c.items.map(i=>`<div class="price-item"><span class="item-name">${i.name}</span><span class="item-price">${i.price}</span></div>`).join('')}</div></div>`).join(
+                ''); }
 
-        function populateOrderSelect() { const p = gs(KEYS.pricing, []); const s = document.getElementById('orderService');
+        function populateOrderSelect() { const s = document.getElementById('orderService');
             s.innerHTML = '<option value="">— Выбери —</option>';
-            p.forEach(cat => { const g = document.createElement('optgroup');
-                g.label = cat.cat;
-                cat.items.forEach(i => { const o = document.createElement('option');
+            gs(KEYS.pricing, []).forEach(c => { const g = document.createElement('optgroup');
+                g.label = c.cat;
+                c.items.forEach(i => { const o = document.createElement('option');
                     o.value = i.name;
                     o.textContent = `${i.name} — ${i.price}`;
                     g.appendChild(o); });
                 s.appendChild(g); }); }
 
-        function renderReviews() { const r = gs(KEYS.reviews, []);
+        function renderReviews() { const r = gs(KEYS.reviews, []); if (!r.length) { document.getElementById('reviewsGrid')
+                .innerHTML =
+                '<p style="color:var(--text-muted);text-align:center;grid-column:1/-1;">Пока нет отзывов. Будь первым!</p>'; return; }
             document.getElementById('reviewsGrid').innerHTML = r.slice().reverse().map(rr => {
                 const stars = Array.from({ length: 5 }, (_, i) =>
                     `<i class="fas fa-star" style="color:${i<rr.stars?'#ffc107':'#444'};font-size:0.8rem;"></i>`).join(
                     '');
                 return `<div class="review-card"><div class="review-header"><div class="review-avatar">${rr.name.charAt(0).toUpperCase()}</div><div><div class="review-author">${rr.name}</div><div class="review-date">${rr.date?new Date(rr.date).toLocaleDateString('ru-RU'):''}</div></div></div><div class="review-stars">${stars}</div><p class="review-text">${rr.text}</p></div>`;
-            }).join('') || '<p style="color:var(--text-muted);text-align:center;">Нет отзывов</p>'; }
+            }).join(''); }
+
+        function renderArticles() { const articles = gs(KEYS.articles, []);
+            document.getElementById('infoContent').innerHTML = articles.length ?
+                `<div class="articles-grid">${articles.slice().reverse().map(a=>`
+                <div class="article-card" onclick="openArticle('${a.id}')">
+                    ${a.prefix?`<span class="article-prefix prefix-${a.prefix}">${a.prefix.toUpperCase()}</span>`:''}
+                    <div class="article-body">
+                        <h3>${a.title}</h3>
+                        <p>${a.content.slice(0,120)}...</p>
+                        <div class="article-meta">
+                            <span><i class="fas fa-calendar"></i> ${new Date(a.createdAt).toLocaleDateString('ru-RU')}</span>
+                            <span><i class="fas fa-heart"></i> ${a.reactions?.like||0}</span>
+                            <span><i class="fas fa-comment"></i> ${a.comments?.length||0}</span>
+                        </div>
+                    </div>
+                </div>`).join('')}</div>` :
+                '<p style="color:var(--text-muted);text-align:center;">Статей пока нет. Загляни позже!</p>'; }
+
+        function openArticle(id) { const a = gs(KEYS.articles, []).find(x => x.id === id); if (!a) return;
+            document.getElementById('articleFullContent').innerHTML = `
+                ${a.prefix?`<span class="article-prefix prefix-${a.prefix}" style="position:static;display:inline-block;margin-bottom:12px;">${a.prefix.toUpperCase()}</span>`:''}
+                <h2 style="color:#fff;">${a.title}</h2>
+                <p style="color:var(--text-muted);font-size:0.8rem;">${new Date(a.createdAt).toLocaleDateString('ru-RU')}</p>
+                <div style="color:var(--text-muted);margin:16px 0;line-height:1.7;">${a.content}</div>
+                <div style="display:flex;gap:12px;margin:16px 0;">
+                    <button class="submit-btn" style="width:auto;padding:8px 16px;" onclick="reactArticle('${a.id}','like')">❤️ ${a.reactions?.like||0}</button>
+                    <button class="submit-btn" style="width:auto;padding:8px 16px;" onclick="reactArticle('${a.id}','fire')">🔥 ${a.reactions?.fire||0}</button>
+                </div>
+                <h4 style="color:#fff;margin-top:20px;">Комментарии (${a.comments?.length||0})</h4>
+                <div id="articleComments">${(a.comments||[]).map(c=>`<div style="background:var(--surface-2);padding:10px;border-radius:8px;margin-bottom:8px;"><strong style="color:#fff;">${c.author}</strong> <span style="color:var(--text-muted);font-size:0.7rem;">${new Date(c.date).toLocaleString('ru-RU')}</span><p style="color:var(--text-muted);margin-top:4px;">${c.text}</p></div>`).join('')||'<p style="color:var(--text-muted);">Нет комментариев</p>'}</div>
+                ${currentUser?`
+                <div class="form-group" style="margin-top:12px;"><label>Добавить комментарий</label><textarea id="articleCommentText" style="min-height:60px;"></textarea>
+                <button class="submit-btn" style="width:auto;margin-top:8px;" onclick="addArticleComment('${a.id}')">Отправить</button></div>
+                `:'<p style="color:var(--text-muted);">Войдите, чтобы комментировать</p>'}
+            `;
+            openModal('articleModal'); }
+
+        function reactArticle(id, type) { let articles = gs(KEYS.articles, []); const a = articles.find(x => x.id === id); if (a) { if (
+                    !a.reactions) a.reactions = {};
+                a.reactions[type] = (a.reactions[type] || 0) + 1;
+                ss(KEYS.articles, articles);
+                openArticle(id); } }
+
+        function addArticleComment(id) { if (!currentUser) return showToast('Войдите', 'error'); const text = document.getElementById(
+                'articleCommentText').value.trim(); if (!text) return showToast('Введи комментарий', 'error'); let articles = gs(
+                KEYS.articles, []); const a = articles.find(x => x.id === id); if (a) { if (!a.comments) a.comments = [];
+            a.comments.push({ author: currentUser.username, text, date: new Date().toISOString() });
+            ss(KEYS.articles, articles);
+            openArticle(id);
+            showToast('Комментарий добавлен'); } }
 
         let reviewStars = 0;
         document.getElementById('starRating').querySelectorAll('i').forEach(s => { s.addEventListener('click', function() {
@@ -1119,29 +1219,25 @@
         document.getElementById('reviewForm').addEventListener('submit', function(e) { e.preventDefault(); const name = document
                 .getElementById('reviewName').value.trim(),
                 text = document.getElementById('reviewText').value.trim(); if (!name || name.length < 2) return showToast(
-                'Имя минимум 2 символа', 'error'); if (reviewStars < 1) return showToast('Поставь оценку', 'error'); if (
-                !text || text.length < 10) return showToast('Отзыв минимум 10 символов', 'error'); const reviews = gs(KEYS
-                .reviews, []);
-            reviews.push({ name, stars: reviewStars, text, date: new Date().toISOString() });
-            ss(KEYS.reviews, reviews);
+                'Имя', 'error'); if (reviewStars < 1) return showToast('Оценка', 'error'); if (!text || text.length < 10)
+                return showToast('Отзыв', 'error');
+            ss(KEYS.reviews, [...gs(KEYS.reviews, []), { name, stars: reviewStars, text, date: new Date().toISOString() }]);
             renderReviews();
             this.reset();
             reviewStars = 0;
             updateStarsDisp();
             showToast('Спасибо за отзыв!'); });
 
-        document.getElementById('orderForm').addEventListener('submit', function(e) { e.preventDefault(); const order = { id: Date
-                    .now(), name: document.getElementById('orderName').value.trim(), contact: document.getElementById(
+        document.getElementById('orderForm').addEventListener('submit', function(e) { e.preventDefault(); const o = { id: Date.now(),
+                    name: document.getElementById('orderName').value.trim(), contact: document.getElementById(
                         'orderContact').value.trim(), service: document.getElementById('orderService').value,
                 budget: document.getElementById('orderBudget').value.trim(), message: document.getElementById(
                     'orderMessage').value.trim(), agree: document.getElementById('orderAgree').checked, status: 'new',
-                createdAt: new Date().toISOString() }; if (!order.name || order.name.length < 2) return showToast(
-                'Введи имя', 'error'); if (!order.contact || order.contact.length < 3) return showToast('Введи контакт',
-                'error'); if (!order.service) return showToast('Выбери услугу', 'error'); if (!order.message || order
-                .message.length < 10) return showToast('Опиши задачу', 'error'); if (!order.agree) return showToast(
-                'Прими соглашение', 'error'); const orders = gs(KEYS.orders, []);
-            orders.unshift(order);
-            ss(KEYS.orders, orders); const btn = this.querySelector('.submit-btn');
+                createdAt: new Date().toISOString() }; if (!o.name || o.name.length < 2) return showToast('Имя', 'error'); if (
+                    !o.contact || o.contact.length < 3) return showToast('Контакт', 'error'); if (!o.service) return showToast(
+                    'Услуга', 'error'); if (!o.message || o.message.length < 10) return showToast('Описание', 'error'); if (!o
+                    .agree) return showToast('Соглашение', 'error');
+            ss(KEYS.orders, [o, ...gs(KEYS.orders, [])]); const btn = this.querySelector('.submit-btn');
             btn.classList.add('loading');
             btn.textContent = 'Отправка...';
             setTimeout(() => { btn.classList.remove('loading');
@@ -1172,50 +1268,51 @@
                 .getElementById('authLogin').value.trim(),
                 pass = document.getElementById('authPass').value.trim(),
                 avatar = document.getElementById('authAvatar').value.trim(); if (!login || login.length < 3) return showToast(
-                'Логин минимум 3 символа', 'error'); if (!pass || pass.length < 4) return showToast(
-                'Пароль минимум 4 символа', 'error'); let users = gs(KEYS.users, []); if (authMode === 'register') { if (users
-                    .find(u => u.username.toLowerCase() === login.toLowerCase())) return showToast('Такой логин уже есть',
-                    'error'); const newUser = { id: 'u-' + Date.now().toString(36), username: login, password: pass,
-                    role: 'user', avatar: avatar || '', createdAt: new Date().toISOString(), banned: false };
-                users.push(newUser);
-                ss(KEYS.users, users);
-                currentUser = newUser;
-                ss(KEYS.current, currentUser);
-                updateUI();
-                closeModal('authModal');
-                showToast('Регистрация успешна!'); } else { const user = users.find(u => u.username === login && u
-                    .password === pass); if (!user) return showToast('Неверный логин или пароль', 'error'); if (user
-                    .banned) return showToast('Ваш аккаунт заблокирован', 'error');
-                currentUser = user;
-                ss(KEYS.current, currentUser);
-                updateUI();
-                closeModal('authModal'); if (isOwner()) showToast('👑 Добро пожаловать, Владелец!'); else if (isAdmin())
-                    showToast('Добро пожаловать, Админ!'); else showToast(
-                    `Добро пожаловать, ${user.username}! Твой ID: ${user.id}`); } });
+                'Логин', 'error'); if (!pass || pass.length < 4) return showToast('Пароль', 'error'); let users = gs(KEYS
+                .users, []); if (authMode === 'register') { if (users.find(u => u.username.toLowerCase() === login
+                    .toLowerCase())) return showToast('Занято', 'error');
+            users.push({ id: 'u-' + Date.now().toString(36), username: login, password: pass, role: 'user', avatar: avatar ||
+                    '', createdAt: new Date().toISOString(), banned: false, status: '' });
+            ss(KEYS.users, users);
+            currentUser = users[users.length - 1];
+            ss(KEYS.current, currentUser);
+            updateUI();
+            closeModal('authModal');
+            showToast('Регистрация успешна!'); } else { const u = users.find(u => u.username === login && u.password ===
+                    pass); if (!u) return showToast('Неверно', 'error'); if (u.banned) return showToast('Забанен',
+                    'error');
+            currentUser = u;
+            ss(KEYS.current, currentUser);
+            updateUI();
+            closeModal('authModal');
+            showToast(isOwner() ? '👑 Владелец!' : isAdmin() ? 'Админ!' : `Привет, ${u.username}!`); } });
 
         function renderProfile() { if (!currentUser) return;
             document.getElementById('profileContent').innerHTML = `
-            <div style="text-align:center;">
-                ${currentUser.avatar?`<img src="${currentUser.avatar}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:12px;">`:`<div style="width:80px;height:80px;border-radius:50%;background:${isOwner()?'var(--owner-gradient)':'var(--gradient)'};display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:2rem;color:#fff;">${currentUser.username.charAt(0).toUpperCase()}</div>`}
-                <p style="color:#fff;font-weight:700;font-size:1.1rem;">${currentUser.username} ${isOwner()?'👑':''}</p>
-                <p style="color:var(--accent-glow);font-size:0.8rem;">ID: ${currentUser.id}</p>
-                ${isOwner()?'<span class="badge badge-owner">👑 Владелец</span>':isAdmin()?'<span class="badge badge-admin">Администратор</span>':'<span class="badge badge-read">Пользователь</span>'}
+            <div style="text-align:center;">${currentUser.avatar?`<img src="${currentUser.avatar}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:12px;">`:`<div style="width:80px;height:80px;border-radius:50%;background:${isOwner()?'var(--owner-gradient)':'var(--gradient)'};display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:2rem;color:#fff;">${currentUser.username.charAt(0).toUpperCase()}</div>`}
+            <p style="color:#fff;font-weight:700;">${currentUser.username} ${isOwner()?'👑':''}</p>
+            <p style="color:var(--accent-glow);font-size:0.8rem;">ID: ${currentUser.id}</p>
+            ${currentUser.status?`<span class="badge badge-owner">${currentUser.status}</span>`:''}
             </div>
-            <div class="form-group" style="margin-top:16px;"><label>Обновить аватарку (ссылка, можно GIF)</label><input type="text" id="profileAvatar" value="${currentUser.avatar||''}"></div>
-            <button class="submit-btn ${isOwner()?'owner-btn':''}" onclick="updateProfile()" style="margin-top:8px;">Сохранить</button>
+            <div class="form-group"><label>Аватарка (ссылка, GIF)</label><input type="text" id="profileAvatar" value="${currentUser.avatar||''}"></div>
+            ${isOwner()?`<div class="form-group"><label>Статус для пользователя (выдать)</label><select id="profileStatus"><option value="">— Нет —</option>${STATUSES.map(s=>`<option value="${s}" ${currentUser.status===s?'selected':''}>${s}</option>`).join('')}</select>
+            <p style="font-size:0.7rem;color:var(--text-muted);">ID пользователя: <input type="text" id="targetUserId" placeholder="u-xxxxx" style="width:120px;padding:4px;background:var(--surface-2);border:1px solid var(--border);color:#fff;border-radius:4px;margin-left:6px;"></p></div>`:''}
+            <button class="submit-btn ${isOwner()?'owner-btn':''}" onclick="updateProfile()">Сохранить</button>
             <button class="submit-btn" onclick="logout()" style="margin-top:8px;background:#555;">Выйти</button>
-            ${isOwner()||isAdmin()?`<button class="submit-btn owner-btn" onclick="closeModal('profileModal');openModal('adminModal');" style="margin-top:8px;">⚡ Панель управления</button>`:''}
-          `; }
+            ${isOwner()||isAdmin()?`<button class="submit-btn owner-btn" onclick="closeModal('profileModal');openModal('adminModal');" style="margin-top:8px;">⚡ Панель</button>`:''}`; }
 
         function updateProfile() { if (!currentUser) return; const a = document.getElementById('profileAvatar').value.trim();
             let users = gs(KEYS.users, []); const idx = users.findIndex(u => u.id === currentUser.id); if (idx >= 0) { users[
                     idx].avatar = a;
-                currentUser.avatar = a;
+                currentUser.avatar = a; if (isOwner()) { const targetId = document.getElementById('targetUserId')?.value
+                        .trim(); const status = document.getElementById('profileStatus')?.value; if (targetId && status) {
+                        const tu = users.find(u => u.id === targetId); if (tu) tu.status = status;
+                        showToast(`Статус "${status}" выдан ${tu.username}`); } }
                 ss(KEYS.users, users);
                 ss(KEYS.current, currentUser);
                 updateUI();
                 renderProfile();
-                showToast('Аватарка обновлена!'); } }
+                showToast('Сохранено!'); } }
 
         function logout() { currentUser = null;
             ss(KEYS.current, null);
@@ -1224,255 +1321,142 @@
             closeModal('adminModal');
             showToast('Вы вышли'); }
 
-        function updateAdminTabs() { const tab = document.getElementById('terminalTab'); if (tab) tab.style.display = isOwner() ?
-                'block' : 'none';
-            document.getElementById('adminPanelTitle').innerHTML = isOwner() ? '👑 Панель Владельца' :
-                '👑 Панель управления'; }
-
-        document.querySelectorAll('.admin-tab').forEach(tab => { tab.addEventListener('click', function() { if (this
-                    .classList.contains('owner-only') && !isOwner()) { showToast('Только для владельца!',
-                    'error'); return; }
+        function updateAdminTabs() { document.getElementById('terminalTab').style.display = isOwner() ? 'block' : 'none';
+            document.getElementById('adminPanelTitle').innerHTML = isOwner() ? '👑 Панель Владельца' : 'Панель управления'; }
+        document.querySelectorAll('.admin-tab').forEach(tab => { tab.addEventListener('click', function() { if (this.classList
+                    .contains('owner-only') && !isOwner()) return showToast('Только владелец!', 'error');
                 document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
                 this.classList.add('active');
                 renderAdminTab(this.dataset.tab); }); });
 
-        function renderAdminTab(tab) { const c = document.getElementById('adminTabContent'); switch (tab) { case 'orders':
-                renderAdminOrders(c); break; case 'users':
-                renderAdminUsers(c); break; case 'pricing':
-                renderAdminPricing(c); break; case 'announce':
-                renderAdminAnnounce(c); break; case 'settings':
-                renderAdminSettings(c); break; case 'terminal':
-                renderTerminal(c); break; } }
+        function renderAdminTab(tab) { const c = document.getElementById('adminTabContent'); if (tab === 'orders')
+            renderAdminOrders(c); else if (tab === 'users') renderAdminUsers(c); else if (tab === 'pricing')
+            renderAdminPricing(c); else if (tab === 'articles') renderAdminArticles(c); else if (tab === 'announce')
+            renderAdminAnnounce(c); else if (tab === 'settings') renderAdminSettings(c); else if (tab === 'terminal')
+            renderTerminal(c); }
 
-        function renderAdminOrders(c) { const orders = gs(KEYS.orders, []); if (!orders.length) { c.innerHTML =
-                '<p style="color:var(--text-muted);text-align:center;">Заявок нет</p>'; return; }
-            c.innerHTML = `<table class="orders-table"><thead><tr><th>ID</th><th>Дата</th><th>Имя</th><th>Контакт</th><th>Услуга</th><th>Статус</th><th>Действие</th></tr></thead><tbody>
-            ${orders.map(o=>`<tr><td>#${o.id.toString().slice(-6)}</td><td>${new Date(o.createdAt).toLocaleString('ru-RU')}</td><td>${o.name}</td><td>${o.contact}</td><td>${o.service}</td><td>${o.status==='new'?'<span class="badge badge-new">Новая</span>':'<span class="badge badge-read">Прочитана</span>'}</td><td>${o.status==='new'?`<button onclick="markRead(${o.id})" style="background:var(--success);color:#fff;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;">✓</button>`:`<button onclick="delOrder(${o.id})" style="background:var(--danger);color:#fff;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;">✕</button>`}</td></tr>`).join('')}
-            </tbody></table>`; }
+        function renderAdminOrders(c) { const o = gs(KEYS.orders, []); if (!o.length) { c.innerHTML =
+                '<p style="color:var(--text-muted);">Нет заявок</p>'; return; }
+            c.innerHTML =
+            `<table style="width:100%;border-collapse:collapse;font-size:0.8rem;"><thead><tr><th>ID</th><th>Дата</th><th>Имя</th><th>Услуга</th><th>Действие</th></tr></thead><tbody>${o.map(x=>`<tr><td>#${x.id.toString().slice(-6)}</td><td>${new Date(x.createdAt).toLocaleString('ru-RU')}</td><td>${x.name}</td><td>${x.service}</td><td>${x.status==='new'?`<button onclick="markRead(${x.id})" style="background:var(--success);color:#fff;border:none;padding:4px 8px;border-radius:4px;">✓</button>`:`<button onclick="delOrder(${x.id})" style="background:var(--danger);color:#fff;border:none;padding:4px 8px;border-radius:4px;">✕</button>`}</td></tr>`).join('')}</tbody></table>`; }
 
         function markRead(id) { let o = gs(KEYS.orders, []); const f = o.find(x => x.id === id); if (f) f.status = 'read';
             ss(KEYS.orders, o);
-            renderAdminTab('orders');
-            showToast('Отмечено'); }
+            renderAdminTab('orders'); }
 
-        function delOrder(id) { if (confirm('Удалить?')) { let o = gs(KEYS.orders, []).filter(x => x.id !== id);
-                ss(KEYS.orders, o);
-                renderAdminTab('orders');
-                showToast('Удалено'); } }
+        function delOrder(id) { if (confirm('Удалить?')) { ss(KEYS.orders, gs(KEYS.orders, []).filter(x => x.id !== id));
+                renderAdminTab('orders'); } }
 
-        function renderAdminUsers(c) { const users = gs(KEYS.users, []);
-            c.innerHTML = `<table class="orders-table"><thead><tr><th>ID</th><th>Логин</th><th>Роль</th><th>Статус</th><th>Действия</th></tr></thead><tbody>
-            ${users.map(u=>`<tr><td>${u.id}</td><td>${u.username} ${u.avatar?`<img src="${u.avatar}" style="width:20px;height:20px;border-radius:50%;vertical-align:middle;">`:''}</td><td>${u.role==='owner'?'<span class="badge badge-owner">👑 Владелец</span>':u.role==='admin'?'<span class="badge badge-admin">Админ</span>':'Пользователь'}${u.banned?' <span class="badge badge-banned">Забанен</span>':''}</td><td>${u.banned?'🔒 Заблокирован':'✅ Активен'}</td><td>${isOwner()&&u.role!=='owner'?`<button onclick="toggleBan('${u.id}')" style="background:${u.banned?'var(--success)':'var(--danger)'};color:#fff;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;margin-right:4px;">${u.banned?'Разбанить':'Забанить'}</button>${u.role!=='admin'?`<button onclick="makeAdmin('${u.id}')" style="background:var(--accent);color:#fff;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;">В админы</button>`:`<button onclick="demoteAdmin('${u.id}')" style="background:var(--warning);color:#000;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;">Разжаловать</button>`}`:'—'}</td></tr>`).join('')}
-            </tbody></table>`; }
+        function renderAdminUsers(c) { const u = gs(KEYS.users, []);
+            c.innerHTML =
+            `<table style="width:100%;border-collapse:collapse;font-size:0.8rem;"><thead><tr><th>ID</th><th>Логин</th><th>Роль</th><th>Статус</th><th>Действия</th></tr></thead><tbody>${u.map(x=>`<tr><td>${x.id}</td><td>${x.username}</td><td>${x.role==='owner'?'<span class="badge badge-owner">Владелец</span>':x.role==='admin'?'<span class="badge badge-admin">Админ</span>':'Польз.'}${x.banned?' <span class="badge badge-banned">Бан</span>':''}${x.status?` <span class="badge badge-owner">${x.status}</span>`:''}</td><td>${x.banned?'🔒':'✅'}</td><td>${isOwner()&&x.role!=='owner'?`<button onclick="toggleBan('${x.id}')" style="background:${x.banned?'var(--success)':'var(--danger)'};color:#fff;border:none;padding:4px 8px;border-radius:4px;">${x.banned?'Разбан':'Бан'}</button>`:'—'}</td></tr>`).join('')}</tbody></table>`; }
 
-        function toggleBan(uid) { let users = gs(KEYS.users, []); const u = users.find(x => x.id === uid); if (u && u.role !==
-                'owner') { u.banned = !u.banned;
-                ss(KEYS.users, users);
-                renderAdminTab('users');
-                showToast(u.banned ? 'Пользователь забанен' : 'Пользователь разбанен'); } }
-
-        function makeAdmin(uid) { if (!isOwner()) return showToast('Только владелец!', 'error'); let users = gs(KEYS.users, []);
-            const u = users.find(x => x.id === uid); if (u && u.role === 'user') { u.role = 'admin';
-                ss(KEYS.users, users);
-                renderAdminTab('users');
-                showToast('Назначен администратором!'); } }
-
-        function demoteAdmin(uid) { if (!isOwner()) return showToast('Только владелец!', 'error'); let users = gs(KEYS.users, []);
-            const u = users.find(x => x.id === uid); if (u && u.role === 'admin') { u.role = 'user';
-                ss(KEYS.users, users);
-                renderAdminTab('users');
-                showToast('Админ разжалован'); } }
+        function toggleBan(id) { let u = gs(KEYS.users, []); const f = u.find(x => x.id === id); if (f && f.role !== 'owner') { f
+                .banned = !f.banned;
+            ss(KEYS.users, u);
+            renderAdminTab('users'); } }
 
         function renderAdminPricing(c) { const p = gs(KEYS.pricing, []);
-            c.innerHTML = `
-            <button class="submit-btn" onclick="addPriceCat()" style="width:auto;padding:8px 16px;margin-bottom:12px;">+ Категория</button>
-            ${p.map((cat,ci)=>`<div style="margin-bottom:12px;border:1px solid var(--border);border-radius:8px;padding:12px;"><div style="display:flex;justify-content:space-between;align-items:center;"><strong>${cat.cat}</strong><div><button onclick="addPriceItem(${ci})" style="background:var(--success);color:#fff;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;">+ Услуга</button><button onclick="delPriceCat(${ci})" style="background:var(--danger);color:#fff;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;">Удалить</button></div></div>${cat.items.map((item,ii)=>`<div style="display:flex;gap:6px;margin-top:4px;"><input value="${item.name}" onchange="updPrice(${ci},${ii},'name',this.value)" style="flex:1;padding:6px;background:var(--surface-light);border:1px solid var(--border);border-radius:4px;color:#fff;"><input value="${item.price}" onchange="updPrice(${ci},${ii},'price',this.value)" style="width:90px;padding:6px;background:var(--surface-light);border:1px solid var(--border);border-radius:4px;color:#fff;"><button onclick="delPriceItem(${ci},${ii})" style="background:var(--danger);color:#fff;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;">✕</button></div>`).join('')}</div>`).join('')}
-          `; }
+            c.innerHTML =
+            `<button class="submit-btn" onclick="addPCat()" style="width:auto;padding:8px 16px;margin-bottom:12px;">+ Категория</button>${p.map((cat,ci)=>`<div style="margin-bottom:10px;border:1px solid var(--border);border-radius:8px;padding:10px;"><strong>${cat.cat}</strong> <button onclick="delPCat(${ci})" style="background:var(--danger);color:#fff;border:none;padding:2px 8px;border-radius:4px;">Удалить</button> <button onclick="addPItem(${ci})" style="background:var(--success);color:#fff;border:none;padding:2px 8px;border-radius:4px;">+</button>${cat.items.map((it,ii)=>`<div style="display:flex;gap:6px;margin-top:4px;"><input value="${it.name}" onchange="updP(${ci},${ii},'name',this.value)" style="flex:1;padding:4px;background:var(--surface-2);border:1px solid var(--border);color:#fff;border-radius:4px;"><input value="${it.price}" onchange="updP(${ci},${ii},'price',this.value)" style="width:80px;padding:4px;background:var(--surface-2);border:1px solid var(--border);color:#fff;border-radius:4px;"><button onclick="delPItem(${ci},${ii})" style="background:var(--danger);color:#fff;border:none;padding:2px 6px;border-radius:4px;">✕</button></div>`).join('')}</div>`).join('')}`; }
 
-        function addPriceCat() { const n = prompt('Название категории:'); if (!n) return; let p = gs(KEYS.pricing, []);
+        function addPCat() { const n = prompt('Категория:'); if (n) { const p = gs(KEYS.pricing, []);
             p.push({ cat: n, items: [] });
             ss(KEYS.pricing, p);
             renderAdminTab('pricing');
-            updateUI(); }
+            updateUI(); } }
 
-        function delPriceCat(ci) { if (!confirm('Удалить?')) return; let p = gs(KEYS.pricing, []);
-            p.splice(ci, 1);
+        function delPCat(i) { if (confirm('Удалить?')) { const p = gs(KEYS.pricing, []);
+            p.splice(i, 1);
             ss(KEYS.pricing, p);
             renderAdminTab('pricing');
-            updateUI(); }
+            updateUI(); } }
 
-        function addPriceItem(ci) { const n = prompt('Услуга:'),
-                pr = prompt('Цена:'); if (!n || !pr) return; let p = gs(KEYS.pricing, []);
-            p[ci].items.push({ name: n, price: pr });
+        function addPItem(i) { const n = prompt('Услуга:'),
+                pr = prompt('Цена:'); if (n && pr) { const p = gs(KEYS.pricing, []);
+            p[i].items.push({ name: n, price: pr });
             ss(KEYS.pricing, p);
             renderAdminTab('pricing');
-            updateUI(); }
+            updateUI(); } }
 
-        function delPriceItem(ci, ii) { let p = gs(KEYS.pricing, []);
+        function delPItem(ci, ii) { const p = gs(KEYS.pricing, []);
             p[ci].items.splice(ii, 1);
             ss(KEYS.pricing, p);
             renderAdminTab('pricing');
             updateUI(); }
 
-        function updPrice(ci, ii, f, v) { let p = gs(KEYS.pricing, []);
+        function updP(ci, ii, f, v) { const p = gs(KEYS.pricing, []);
             p[ci].items[ii][f] = v;
             ss(KEYS.pricing, p);
             updateUI(); }
 
-        function renderAdminAnnounce(c) { const a = gs(KEYS.announce, { text: '', active: false });
-            c.innerHTML = `
-            <div class="form-group"><label>Текст объявления</label><textarea id="annText" style="min-height:80px;">${a.text}</textarea></div>
-            <div class="form-group"><input type="checkbox" id="annActive" ${a.active?'checked':''}> <label>Показывать</label></div>
-            <button class="submit-btn" onclick="saveAnn()">Сохранить</button>`; }
+        function renderAdminArticles(c) { const a = gs(KEYS.articles, []);
+            c.innerHTML =
+            `<button class="submit-btn" onclick="showAddArticle()" style="width:auto;padding:8px 16px;margin-bottom:12px;">+ Статья</button><div id="addArticleForm" style="display:none;"></div>${a.map(x=>`<div style="border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:8px;display:flex;justify-content:space-between;"><span>${x.prefix?`[${x.prefix.toUpperCase()}] `:''}${x.title}</span><button onclick="delArticle('${x.id}')" style="background:var(--danger);color:#fff;border:none;padding:4px 8px;border-radius:4px;">✕</button></div>`).join('')}`; }
 
-        function saveAnn() { const t = document.getElementById('annText').value.trim(),
-                a = document.getElementById('annActive').checked;
-            ss(KEYS.announce, { text: t, active: a });
+        function showAddArticle() {
+            document.getElementById('addArticleForm').style.display = 'block';
+            document.getElementById('addArticleForm').innerHTML = `
+            <div class="form-group"><label>Заголовок</label><input type="text" id="artTitle"></div>
+            <div class="form-group"><label>Префикс</label><select id="artPrefix"><option value="">Без префикса</option><option value="info">Информация</option><option value="important">Важно</option><option value="actual">Актуально</option><option value="outdated">Неактуально</option><option value="guide">Гайд</option><option value="lifehack">Лайфхак</option></select></div>
+            <div class="form-group"><label>Содержание</label><textarea id="artContent" style="min-height:150px;"></textarea></div>
+            <button class="submit-btn" onclick="addArticle()">Опубликовать</button>`;
+        }
+
+        function addArticle() { const title = document.getElementById('artTitle').value.trim(),
+                prefix = document.getElementById('artPrefix').value,
+                content = document.getElementById('artContent').value.trim(); if (!title || !content) return showToast(
+                'Заполни всё', 'error'); const articles = gs(KEYS.articles, []);
+            articles.push({ id: 'a-' + Date.now(), title, prefix: prefix || '', content, createdAt: new Date().toISOString(),
+                reactions: { like: 0, fire: 0 }, comments: [] });
+            ss(KEYS.articles, articles);
+            renderArticles();
+            renderAdminTab('articles');
+            showToast('Статья опубликована!'); }
+
+        function delArticle(id) { if (confirm('Удалить?')) { ss(KEYS.articles, gs(KEYS.articles, []).filter(x => x.id !== id));
+                renderArticles();
+                renderAdminTab('articles'); } }
+
+        function renderAdminAnnounce(c) { const a = gs(KEYS.announce, { text: '', active: false });
+            c.innerHTML =
+            `<div class="form-group"><textarea id="annText">${a.text}</textarea></div><div class="form-group"><input type="checkbox" id="annActive" ${a.active?'checked':''}> Показывать</div><button class="submit-btn" onclick="saveAnn()">Сохранить</button>`; }
+
+        function saveAnn() { ss(KEYS.announce, { text: document.getElementById('annText').value.trim(), active: document
+                .getElementById('annActive').checked });
             updateAnnounce();
-            showToast('Объявление сохранено!'); }
+            showToast('Сохранено!'); }
 
         function renderAdminSettings(c) { const s = gs(KEYS.settings, { openForOrders: true });
-            c.innerHTML = `
-            <div class="form-group"><input type="checkbox" id="openOrd" ${s.openForOrders?'checked':''}> <label>Открыт для заказов</label></div>
-            <button class="submit-btn" onclick="saveSett()">Сохранить</button>`; }
+            c.innerHTML =
+            `<div class="form-group"><input type="checkbox" id="openOrd" ${s.openForOrders?'checked':''}> Открыт для заказов</div><button class="submit-btn" onclick="saveSett()">Сохранить</button>`; }
 
         function saveSett() { ss(KEYS.settings, { openForOrders: document.getElementById('openOrd').checked });
             updateStatusBadge();
             showToast('Сохранено!'); }
 
-        // === ТЕРМИНАЛ ВЛАДЕЛЬЦА ===
-        function renderTerminal(c) {
-            c.innerHTML = `
-            <div class="terminal-box" id="terminalOutput">
-                <div class="info">💻 Терминал владельца ERNEX v2.0</div>
-                <div class="info">Введите "help" для списка команд</div>
-            </div>
-            <div class="terminal-input">
-                <input type="text" id="terminalCmd" placeholder="Введи команду..." onkeydown="if(event.key==='Enter')execTerminal()">
-                <button onclick="execTerminal()">▶ Выполнить</button>
-            </div>`;
-        }
+        function renderTerminal(c) { c.innerHTML =
+            `<div class="terminal-box" id="termOut"><div>💻 Терминал ERNEX v3.0</div><div>help — список команд</div></div><div class="terminal-input" style="display:flex;gap:8px;margin-top:8px;"><input type="text" id="termCmd" onkeydown="if(event.key==='Enter')execTerm()" style="flex:1;background:#0a0a0a;border:1px solid #333;color:#0f0;padding:8px;border-radius:4px;font-family:monospace;"><button onclick="execTerm()" style="background:#333;color:#0f0;border:none;padding:8px 16px;border-radius:4px;">▶</button></div>`; }
 
-        function termPrint(text, cls = 'cmd') {
-            const out = document.getElementById('terminalOutput');
-            if (out) out.innerHTML += `<div class="${cls}">${text}</div>`;
-        }
+        function termPrint(t, cls = 'cmd') { const o = document.getElementById('termOut'); if (o) o.innerHTML +=
+            `<div style="color:${cls==='err'?'#f44':cls==='info'?'#ff0':'#0f0'}">${t}</div>`; }
 
-        function execTerminal() {
-            const input = document.getElementById('terminalCmd');
-            const cmd = input.value.trim();
-            if (!cmd) return;
-            termPrint(`> ${cmd}`, 'cmd');
-            input.value = '';
-            const parts = cmd.split(' ');
-            const action = parts[0].toLowerCase();
-            const arg = parts.slice(1).join(' ');
-
-            switch (action) {
-                case 'help':
-                    termPrint('Доступные команды:', 'info');
-                    termPrint('  reset_all — полный сброс сайта');
-                    termPrint('  promote ID — сделать админом');
-                    termPrint('  demote ID — разжаловать админа');
-                    termPrint('  delete_user ID — удалить пользователя');
-                    termPrint('  ban ID — забанить');
-                    termPrint('  unban ID — разбанить');
-                    termPrint('  clear_orders — удалить все заявки');
-                    termPrint('  clear_reviews — удалить все отзывы');
-                    termPrint('  broadcast текст — объявление на сайт');
-                    termPrint('  stats — статистика');
-                    termPrint('  whoami — информация о владельце');
-                    break;
-                case 'reset_all':
-                    if (confirm('ПОЛНЫЙ СБРОС? Это удалит ВСЁ!')) { localStorage.clear();
-                        initDefaults();
-                        termPrint('✅ Сайт сброшен до начальных настроек.', 'info');
-                        updateUI(); } else termPrint('❌ Отменено', 'err');
-                    break;
-                case 'promote':
-                    if (!arg) { termPrint('Укажи ID: promote u-xxxxx', 'err'); break; }
-                    let pu = gs(KEYS.users, []);
-                    const pf = pu.find(u => u.id === arg);
-                    if (pf && pf.role === 'user') { pf.role = 'admin';
-                        ss(KEYS.users, pu);
-                        termPrint(`✅ ${pf.username} теперь админ`, 'info'); } else termPrint('❌ Не найден или уже админ',
-                        'err');
-                    break;
-                case 'demote':
-                    if (!arg) { termPrint('Укажи ID', 'err'); break; }
-                    let du = gs(KEYS.users, []);
-                    const df = du.find(u => u.id === arg);
-                    if (df && df.role === 'admin') { df.role = 'user';
-                        ss(KEYS.users, du);
-                        termPrint(`✅ ${df.username} разжалован`, 'info'); } else termPrint('❌ Не найден или не админ',
-                        'err');
-                    break;
-                case 'delete_user':
-                    if (!arg) { termPrint('Укажи ID', 'err'); break; }
-                    if (arg === 'owner-001') { termPrint('❌ Нельзя удалить владельца!', 'err'); break; }
-                    let us = gs(KEYS.users, []);
-                    const uf = us.find(u => u.id === arg);
-                    if (uf) { us = us.filter(u => u.id !== arg);
-                        ss(KEYS.users, us);
-                        termPrint(`✅ ${uf.username} удалён`, 'info'); } else termPrint('❌ Не найден', 'err');
-                    break;
-                case 'ban':
-                    if (!arg) { termPrint('Укажи ID', 'err'); break; }
-                    if (arg === 'owner-001') { termPrint('❌ Нельзя забанить владельца!', 'err'); break; }
-                    let bu = gs(KEYS.users, []);
-                    const bf = bu.find(u => u.id === arg);
-                    if (bf) { bf.banned = true;
-                        ss(KEYS.users, bu);
-                        termPrint(`✅ ${bf.username} забанен`, 'info'); } else termPrint('❌ Не найден', 'err');
-                    break;
-                case 'unban':
-                    if (!arg) { termPrint('Укажи ID', 'err'); break; }
-                    let ub = gs(KEYS.users, []);
-                    const ubf = ub.find(u => u.id === arg);
-                    if (ubf) { ubf.banned = false;
-                        ss(KEYS.users, ub);
-                        termPrint(`✅ ${ubf.username} разбанен`, 'info'); } else termPrint('❌ Не найден', 'err');
-                    break;
-                case 'clear_orders':
-                    if (confirm('Удалить все заявки?')) { ss(KEYS.orders, []);
-                        termPrint('✅ Все заявки удалены', 'info'); }
-                    break;
-                case 'clear_reviews':
-                    if (confirm('Удалить все отзывы?')) { ss(KEYS.reviews, []);
-                        termPrint('✅ Все отзывы удалены', 'info');
-                        renderReviews(); }
-                    break;
-                case 'broadcast':
-                    if (!arg) { termPrint('Укажи текст объявления', 'err'); break; }
-                    ss(KEYS.announce, { text: arg, active: true });
-                    updateAnnounce();
-                    termPrint('✅ Объявление опубликовано', 'info');
-                    break;
-                case 'stats':
-                    const users = gs(KEYS.users, []);
-                    const orders = gs(KEYS.orders, []);
-                    const reviews = gs(KEYS.reviews, []);
-                    termPrint(`📊 Статистика сайта:`, 'info');
-                    termPrint(`  👥 Пользователей: ${users.length} (админов: ${users.filter(u=>u.role==='admin').length}, владелец: 1, забанено: ${users.filter(u=>u.banned).length})`);
-                    termPrint(`  📋 Заявок: ${orders.length} (новых: ${orders.filter(o=>o.status==='new').length})`);
-                    termPrint(`  ⭐ Отзывов: ${reviews.length}`);
-                    break;
-                case 'whoami':
-                    termPrint(`👑 Вы — владелец сайта ERNEX`, 'info');
-                    termPrint(`   Логин: ${OWNER_CRED.username}`, 'info');
-                    termPrint(`   Полный контроль над сайтом`, 'info');
-                    break;
-                default:
-                    termPrint(`❌ Неизвестная команда: ${action}. Введите help`, 'err');
-            }
-            const out = document.getElementById('terminalOutput');
-            if (out) out.scrollTop = out.scrollHeight;
-        }
+        function execTerm() { const inp = document.getElementById('termCmd'); const cmd = inp.value.trim(); if (!cmd) return;
+            termPrint('> ' + cmd);
+            inp.value = ''; const parts = cmd.split(' '); const act = parts[0].toLowerCase(); const arg = parts.slice(1).join(
+                ' ');
+            if (act === 'help') { termPrint('reset_all | promote ID | demote ID | delete_user ID | ban ID | unban ID | clear_orders | clear_reviews | broadcast текст | stats | whoami',
+                    'info'); } else if (act === 'reset_all') { if (confirm('Сбросить всё?')) { localStorage.clear();
+                    init();
+                    updateUI();
+                    termPrint('Сброшено', 'info'); } } else if (act === 'stats') { const u = gs(KEYS.users, []),
+                    o = gs(KEYS.orders, []),
+                    r = gs(KEYS.reviews, []);
+                termPrint(`Польз: ${u.length} | Заявок: ${o.length} | Отзывов: ${r.length}`, 'info'); } else if (act ===
+                'whoami') { termPrint('👑 Владелец ERNEX', 'info'); } else termPrint('Неизвестная команда', 'err');
+            const out = document.getElementById('termOut'); if (out) out.scrollTop = out.scrollHeight; }
 
         updateUI();
-        console.log('%c👑 ERNEX Site v2.0 %c| %cOwner: ernex / ernex1337 | Admin: admin / admin123',
-            'color:#ffd700;font-size:1.1rem;', '', 'color:#a29bfe;');
-        console.log('%cТерминал владельца доступен в админ-панели', 'color:#ffd700;');
     </script>
 </body>
 </html>
